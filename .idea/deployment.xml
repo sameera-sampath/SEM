@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="On explicit save action (Ctrl+S)" promptOnRemoteOverwrite="CHECK_TIMESTAMP" serverName="Xamp Apache" autoUploadExternalChanges="true">
+    <serverData>
+      <paths name="Xamp Apache">
+        <serverdata>
+          <mappings>
+            <mapping deploy="SEM" local="$PROJECT_DIR$" web="/PHPStorm/SEM" />
+            <mapping deploy="\" local="$PROJECT_DIR$/.." web="/PHPStorm" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ON_EXPLICIT_SAVE" />
+  </component>
+</project>
+
