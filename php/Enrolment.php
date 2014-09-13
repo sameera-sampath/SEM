@@ -51,8 +51,8 @@ require_once('authorize.php');
     <div id="content_inner">
             <div class="content_title">Student Enrolment</div>
             <div class="content_middle">
-                <div class="content_block"><a href="http://103.29.60.41:8080/EMIS/schoolnet/" class="content_link">
-                        <span class="content_link_text">Applications&nbsp;</span></a><!--<div class="alert1"></div>--></div>
+                <div class="content_block"><a href="Application.php?stage=1" class="content_link">
+                        <span class="content_link_text">New Application&nbsp;</span></a><!--<div class="alert1"></div>--></div>
                 <div class="content_block"><a href="http://103.29.60.41:8080/EMIS/timetable/" class="content_link">
                         <span class="content_link_text">Selection Panel<br>&nbsp;</span></a></div>
                 <div class="content_block"><a href="http://103.29.60.41:8080/EMIS/retirement/" class="content_link">
@@ -60,8 +60,6 @@ require_once('authorize.php');
                 <div class="content_block"><a href="http://103.29.60.41:8080/EMIS/administrator/" class="content_link">
                         <span class="content_link_text">Confirm Enrolments<br>&nbsp;</span></a></div>
 
-                <!--<div class="content_block"><a href="http://103.29.60.41:8080/EMIS/approvel/" class="mcibm_block_link"><img src="EMIS_files/settings.png" alt="dashboard" height="35" width="48">Approve<br>
-                        <span class="mcibm_block_link_text">&nbsp;</span></a></div>-->
             </div>
             <div class="content_bottom">
             </div>

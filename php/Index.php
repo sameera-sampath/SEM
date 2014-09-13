@@ -60,8 +60,8 @@ require_once('authorize.php');
                 <div class="content_block"><a href="User_Accounts.php" class="content_link">
                         <span class="content_link_text">User_Accounts<br>&nbsp;</span></a></div>
 
-                <!--<div class="content_block"><a href="http://103.29.60.41:8080/EMIS/approvel/" class="mcibm_block_link"><img src="EMIS_files/settings.png" alt="dashboard" height="35" width="48">Approve<br>
-                        <span class="mcibm_block_link_text">&nbsp;</span></a></div>-->
+                <!--<div class="content_block"><a href="" class="content_link"><img src="EMIS_files/settings.png" alt="dashboard" height="35" width="48">Approve<br>
+                        <span class="content_link_text">&nbsp;</span></a></div>-->
             </div>
             <div class="content_bottom">
             </div>
