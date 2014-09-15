@@ -16,4 +16,5 @@ unset($_SESSION['religion']);
 unset($_SESSION['gender']);
 unset($_SESSION['medium']);
 header("location: Application.php?stage=1");
+exit();
 ?>

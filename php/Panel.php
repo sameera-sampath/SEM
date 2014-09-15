@@ -2,6 +2,58 @@
     <!--Check whether the user is logged in.-->
 <?php
 require_once('authorize.php');
+
+//Connect to the database
+require_once('connection.php');
+if(isset($_POST['application'])and strlen($_POST['application']) > 0)
+{
+    $selection;
+    $app=$_POST['application'];
+    $_SESSION['SESS_Appication'] = $app;
+    $_SESSION['SESS_School'] = $_POST['subcat3'];
+    if(isset($_POST['category']) and strlen($_POST['category']) > 0)
+    {
+        $selection= $_POST['category'];
+    }
+    else{
+        $sql="SELECT Application_ID,Category_ID FROM Application where Application_ID=$app";
+        $resultses = mysql_query ($sql);
+        while($resultSet = mysql_fetch_array($resultses))
+        {
+            if($resultSet[Application_ID]==$app)
+            {
+                $selection = $resultSet[Category_ID];
+            }
+
+        }
+    }
+    $_SESSION['SESS_Category'] = $selection;
+    switch($selection)
+    {
+        case 1:
+            header("location: App_Resident.php");
+            break;
+        case "2":
+            header("location: index.php");
+            break;
+        case "3":
+            header("location: index.php");
+            break;
+        case "4":
+            header("location: index.php");
+            break;
+        case "5":
+            header("location: index.php");
+            break;
+        case "6":
+            header("location: index.php");
+            break;
+        default:
+            header("location: App_Resident.php?default=".$selection);
+    }
+    exit();
+}
+else{
 ?>
 
 <html>
@@ -93,8 +145,6 @@ require_once('authorize.php');
             <div class="content_title">Application Selection Panel</div>
             <div class="content_middle">
                 <?php
-                //Connect to the database
-                require_once('connection.php');
 
                 ///////// Getting the data from Mysql table for District list box//////////
                 $quer2="SELECT DISTINCT District_ID,District_Name FROM district order by District_ID";
@@ -125,6 +175,8 @@ require_once('authorize.php');
                 }
                 else{$quer3="SELECT DISTINCT School_ID,School_Name FROM School where Division_ID =null order by School_ID";}
                 ///////////// End of query for School list box////////////
+
+                ///////// Getting the data from Mysql table for Application list box//////////
                 if(isset($_GET['scl']))
                 {
                     $scl=$_GET['scl']; // This line is added to take care if your global variable is off
@@ -133,7 +185,16 @@ require_once('authorize.php');
                 {
                     $cate=$_GET['cate']; // This line is added to take care if your global variable is off
                 }
+                if(isset($scl) and strlen($scl) > 0){
+                    if(isset($cate) and strlen($cate) > 0){
+                        $queryApp="SELECT Application_ID,Full_Name,Applicant_Initials,Applicant_LastName,Applicant_Type FROM Application where School_ID =$scl AND Category_ID=$cate order by Application_ID";
+                    }
+                    else{$queryApp="SELECT Application_ID,Full_Name,Applicant_Initials,Applicant_LastName,Applicant_Type FROM Application where School_ID =$scl order by Application_ID";}
+                }
+                else{$queryApp="";}
+                ///////////// End of query for Application list box////////////
                 ?>
+
                 <form onload="disableselect()" id="stage1" name="f1" action="<?php $_PHP_SELF ?>" method="post">
 
                     <legend><strong id="SchoolLabel">School :</strong></legend>
@@ -214,9 +275,26 @@ require_once('authorize.php');
                             ?>
                         </div>
                     </label>
+
+                    <label id="category-label" class="app_label">
+                        <strong>Application</strong>
+                        <div id="category-select" class="app_select" >
+
+                            <?php
+                            //////////        Starting of Application drop downlist /////////
+                            $resultApp = mysql_query ($queryApp);
+                            echo "<select name='application'><option value=''>Select Application</option>";
+                            while($retriev = mysql_fetch_array($resultApp)) {
+                            echo  "<option value='$retriev[Application_ID]'>$retriev[Full_Name] : $retriev[Applicant_Type] :- $retriev[Applicant_Initials] $retriev[Applicant_LastName]</option>";
+                            }
+                            echo "</select>";
+                            //////////////////  This will end the Application drop down list ///////////
+                            ?>
+                        </div>
+                    </label>
                     <?php } ?>
                     <div class="button">
-                        <input id="nextstep" name="nextstep" type="submit" value="Next step" class="submit_button">
+                        <input id="proceed" name="proceed" type="submit" value="Proceed" class="submit_button">
                     </div>
                 </form>
             </div>
@@ -228,3 +306,4 @@ require_once('authorize.php');
 
 </body>
 </html>
+<?php } ?>
