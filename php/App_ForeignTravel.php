@@ -67,7 +67,7 @@ require_once('authorize.php');
             <div class="content_title">Student Enrolment</div>
             <div class="content_middle">
 
-                <!-- Residential form-->
+                <!-- Foreign Travel form-->
 
                 <form id="stage1" action="<?php $_PHP_SELF ?>" method="post">
                     <table class="resident" id="resident_table">																       <tr>
@@ -77,60 +77,50 @@ require_once('authorize.php');
                         </tr>
                         <tr>
                             <td align="left">
-                                <label id="Elec-reg_label" class="app_label">Number of years applicant and suppoce included in the electoral register</label><input name="Elec-reg" type="text" class="app_input" id="Elec-reg_label" /><br />
+                                <label id="ftime_label" class="app_label">Arrived date after foreign travel</label> <br /><input name="ftime" type="text" class="app_input" id="ftime_input" /><br />
+                                <label id="timef_label" class="app_label">Time period of foreign travel</label><br /><label>From (YYYY-MM-DD)</label><br /><input name="timef1" type="text" class="app_input" id="timef1_input" />
+                                <br /><label>To (YYYY-MM-DD)</label><br /><input name="timef2" type="text" class="app_input" id="timef2_input" />
 
-
-                                <label id=" Elec-reg2_label">
-                                    Number of years if applicant or suppoce is included in electoral register</label><input name="Elec-reg2" type="text" class="app_input" id="Elec-reg2_input" /><br />
                             </td>
-                            <td align="left"><input name="marks1" type="text" class="app_input" id="marks1_input" /></td>
+                            <td align="left"><input name="marks41" type="text" class="app_input" id="marks41_input" /></td>
 
-                            <td align="left"><label id="marks1" class="app_label"> Out of 35</label></td>
+                            <td align="left"><label id="marks41_lable" class="app_label"> Out of 25</label></td>
                         </tr>
                         <tr>
                             <td align="left">
 
-                                <label id="ownership_label" class="app_label">Ownership of resident place</label>
+                                <label id="freson_label" class="app_label">Reson for foreign travel</label>
                                 <p>
                                     <label>
-                                        <input type="radio" name="ownership" value="Title deed" id="ownership_0" />
-                                        Title deed</label>
+                                        <input type="radio" name="freson" value="Title deed" id="freson" />
+                                        Diplomatic Travels</label>
                                     <br />
                                     <label>
-                                        <input type="radio" name="ownership" value="Registered lease deed" id="ownership_1" />
-                                        Registered lease deed</label>
+                                        <input type="radio" name="freson" value="Registered lease deed" id="freson" />
+                                        For Government Service</label>
                                     <br />
                                     <label>
-                                        <input type="radio" name="ownership" value="Official residant" id="ownership_2" />
-                                        Official resident</label>
+                                        <input type="radio" name="freson" value="Official residant" id="freson" />
+                                        For Scholarship</label>
                                     <br />
                                     <label>
-                                        <input type="radio" name="ownership" value="othere" id="ownership_2" />
-                                        othere</label>
+                                        <input type="radio" name="freson" value="othere" id="freson" />
+                                        Private Reason</label>
                                     <br />
                                 </p><br />
                             </td>
-                            <td align="left"><input name="marks2" type="text" class="app_input" id="marks2_input" /></td>
-                            <td align="left"><label id="marks2" class="app_label"> Out of 35</label></td>
+                            <td align="left"><input name="marks42" type="text" class="app_input" id="marks42_input" /></td>
+                            <td align="left"><label id="marks22_label" class="app_label"> Out of 40</label></td>
                         </tr>
 
                         <tr>
                             <td align="left">
-                                <label id="proof_label" class="app_label">Number of extra documents prooving the residant place</label><br /><input name="proof" type="text" class="app_input" id="proof_input" /> <br />
+                                <label id="nearsch_label" class="app_label">Number of schools near than applied school</label><br /><input name="nearsch" type="text" class="app_input" id="nearsch_input" /> <br />
 
                             </td>
-                            <td align="left"><input name="marks3" type="text" class="app_input" id="marks3_input" /></td>
-                            <td align="left"><label id="marks3" class="app_label"> Out of 35</label></td>
+                            <td align="left"><input name="marks23" type="text" class="app_input" id="marks23_input" /></td>
+                            <td align="left"><label id="marks23" class="app_label"> Out of 35</label></td>
 
-                        </tr>
-
-
-                        <tr>
-                            <td align="left">
-                                <label id="othere-sch_label" class="app_label">Number of schools near than this</label><br /> <input name="othere-sch" type="text" class="app_input" id="othere-sch_input" />
-                            </td>
-                            <td align="left"><input name="marks4" type="text" class="app_input" id="marks4_input" /></td>
-                            <td align="left"><label id="marks4" class="app_label"> Out of 35</label></td>
                         </tr>
 
                     </table>
@@ -139,9 +129,8 @@ require_once('authorize.php');
                     <div class="button" align="center">
                         <input id="submit" name="submit" type="submit" value="Submit" class="submit_button">
                     </div>
-                </form>
 
-                <!-- Residential form ends-->
+                <!-- Foreign Travel form ends-->
 
             </div>
             <div class="content_bottom">

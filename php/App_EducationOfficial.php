@@ -67,7 +67,7 @@ require_once('authorize.php');
             <div class="content_title">Student Enrolment</div>
             <div class="content_middle">
 
-                <!-- Residential form-->
+                <!-- Education Officials' Children form-->
 
                 <form id="stage1" action="<?php $_PHP_SELF ?>" method="post">
                     <table class="resident" id="resident_table">																       <tr>
@@ -77,61 +77,59 @@ require_once('authorize.php');
                         </tr>
                         <tr>
                             <td align="left">
-                                <label id="Elec-reg_label" class="app_label">Number of years applicant and suppoce included in the electoral register</label><input name="Elec-reg" type="text" class="app_input" id="Elec-reg_label" /><br />
+                                <label id="post-service_label" class="app_label">Years of service as a permenent emploee in the perticular organisation</label> <br /><input name="post-service" type="text" class="app_input" id="post-service_input" /><br />
 
-
-                                <label id=" Elec-reg2_label">
-                                    Number of years if applicant or suppoce is included in electoral register</label><input name="Elec-reg2" type="text" class="app_input" id="Elec-reg2_input" /><br />
                             </td>
-                            <td align="left"><input name="marks1" type="text" class="app_input" id="marks1_input" /></td>
+                            <td align="left"><input name="marks31" type="text" class="app_input" id="marks31_input" /></td>
 
-                            <td align="left"><label id="marks1" class="app_label"> Out of 35</label></td>
+                            <td align="left"><label id="marks31_lable" class="app_label"> Out of 20</label></td>
                         </tr>
                         <tr>
                             <td align="left">
 
-                                <label id="ownership_label" class="app_label">Ownership of resident place</label>
-                                <p>
-                                    <label>
-                                        <input type="radio" name="ownership" value="Title deed" id="ownership_0" />
-                                        Title deed</label>
-                                    <br />
-                                    <label>
-                                        <input type="radio" name="ownership" value="Registered lease deed" id="ownership_1" />
-                                        Registered lease deed</label>
-                                    <br />
-                                    <label>
-                                        <input type="radio" name="ownership" value="Official residant" id="ownership_2" />
-                                        Official resident</label>
-                                    <br />
-                                    <label>
-                                        <input type="radio" name="ownership" value="othere" id="ownership_2" />
-                                        othere</label>
-                                    <br />
-                                </p><br />
+                                <label id="distance_label" class="app_label">Distance between resident place and work place</label><br /><input name="distance" type="text" class="app_input" id="distance_input" />
                             </td>
-                            <td align="left"><input name="marks2" type="text" class="app_input" id="marks2_input" /></td>
-                            <td align="left"><label id="marks2" class="app_label"> Out of 35</label></td>
+                            <td align="left"><input name="marks32" type="text" class="app_input" id="marks32_input" /></td>
+                            <td align="left"><label id="marks32_label" class="app_label"> Out of 35</label></td>
                         </tr>
 
                         <tr>
                             <td align="left">
-                                <label id="proof_label" class="app_label">Number of extra documents prooving the residant place</label><br /><input name="proof" type="text" class="app_input" id="proof_input" /> <br />
+                                <label id="remote-servicename_label" class="app_label">years of if engaging remote sevice in a School</label><br /><input name="remote-servicename" type="text" class="app_input" id="remote-servicename_input" /> <br />
+                                <label id="remote-sevicetime_label" class="app_label">Years of service if engaged in remote service</label><br /> <input name="remote-sevicetime" type="text" class="app_input" id="remote-sevicetime_input" /><br />
 
                             </td>
-                            <td align="left"><input name="marks3" type="text" class="app_input" id="marks3_input" /></td>
-                            <td align="left"><label id="marks3" class="app_label"> Out of 35</label></td>
+                            <td align="left"><input name="marks33" type="text" class="app_input" id="marks33_input" /></td>
+                            <td align="left"><label id="marks33" class="app_label"> Out of 25</label>
 
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td align="left">
+
+                                <label id="holiday_label" class="app_label">Number of holidays not claimed</label>
+                                <br /><label>Past 1st year</label><input name="2013" type="text" class="app_input" id="2013_input" />
+                                <br /><label>Past 2nd year</label><input name="2012" type="text" class="app_input" id="2012_input" />
+                                <br /><label>Past 3rd year</label><input name="2011" type="text" class="app_input" id="2011_input" />
+                                <br /><label>Past 4th year</label><input name="2010" type="text" class="app_input" id="2010_input" />
+                                <br /><label>Past 5th year</label><input name="2009" type="text" class="app_input" id="2009_input" />
+                            </td>
+                            <td align="left"><input name="marks34" type="text" class="app_input" id="marks34_input" /></td>
+                            <td align="left"><label id="marks34_label" class="app_label"> Out of 10</label></td>
                         </tr>
 
 
                         <tr>
                             <td align="left">
-                                <label id="othere-sch_label" class="app_label">Number of schools near than this</label><br /> <input name="othere-sch" type="text" class="app_input" id="othere-sch_input" />
+
+                                <label id="schname_label" class="app_label">Years of service in applied school if working in applied school</label><br /><input name="schname" type="text" class="app_input" id="schname_input" />
                             </td>
-                            <td align="left"><input name="marks4" type="text" class="app_input" id="marks4_input" /></td>
-                            <td align="left"><label id="marks4" class="app_label"> Out of 35</label></td>
+                            <td align="left"><input name="marks35" type="text" class="app_input" id="marks35_input" /></td>
+                            <td align="left"><label id="marks35_label" class="app_label"> Out of 10</label></td>
                         </tr>
+
 
                     </table>
 
@@ -141,7 +139,7 @@ require_once('authorize.php');
                     </div>
                 </form>
 
-                <!-- Residential form ends-->
+                <!-- Education Officials' Children form ends-->
 
             </div>
             <div class="content_bottom">

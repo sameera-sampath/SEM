@@ -67,7 +67,7 @@ require_once('authorize.php');
             <div class="content_title">Student Enrolment</div>
             <div class="content_middle">
 
-                <!-- Residential form-->
+                <!-- Old Student form-->
 
                 <form id="stage1" action="<?php $_PHP_SELF ?>" method="post">
                     <table class="resident" id="resident_table">																       <tr>
@@ -77,60 +77,39 @@ require_once('authorize.php');
                         </tr>
                         <tr>
                             <td align="left">
-                                <label id="Elec-reg_label" class="app_label">Number of years applicant and suppoce included in the electoral register</label><input name="Elec-reg" type="text" class="app_input" id="Elec-reg_label" /><br />
+                                <label id="no-grade_label" class="app_label">Number of grades studied in the school</label> <br /><input name="no-grade" type="text" class="app_input" id="no-grade_input" /><br />
 
-
-                                <label id=" Elec-reg2_label">
-                                    Number of years if applicant or suppoce is included in electoral register</label><input name="Elec-reg2" type="text" class="app_input" id="Elec-reg2_input" /><br />
                             </td>
-                            <td align="left"><input name="marks1" type="text" class="app_input" id="marks1_input" /></td>
+                            <td align="left"><input name="marks21" type="text" class="app_input" id="marks21_input" /></td>
 
-                            <td align="left"><label id="marks1" class="app_label"> Out of 35</label></td>
+                            <td align="left"><label id="marks21_lable" class="app_label"> Out of 26</label></td>
                         </tr>
                         <tr>
                             <td align="left">
 
-                                <label id="ownership_label" class="app_label">Ownership of resident place</label>
-                                <p>
-                                    <label>
-                                        <input type="radio" name="ownership" value="Title deed" id="ownership_0" />
-                                        Title deed</label>
-                                    <br />
-                                    <label>
-                                        <input type="radio" name="ownership" value="Registered lease deed" id="ownership_1" />
-                                        Registered lease deed</label>
-                                    <br />
-                                    <label>
-                                        <input type="radio" name="ownership" value="Official residant" id="ownership_2" />
-                                        Official resident</label>
-                                    <br />
-                                    <label>
-                                        <input type="radio" name="ownership" value="othere" id="ownership_2" />
-                                        othere</label>
-                                    <br />
-                                </p><br />
+                                <label id="achivmentsin_label" class="app_label">Achivments in the school</label><br /><input name="achivmentsin" type="text" class="app_input" id="achivmentsin_input" />
                             </td>
-                            <td align="left"><input name="marks2" type="text" class="app_input" id="marks2_input" /></td>
-                            <td align="left"><label id="marks2" class="app_label"> Out of 35</label></td>
+                            <td align="left"><input name="marks22" type="text" class="app_input" id="marks22_input" /></td>
+                            <td align="left"><label id="marks22_label" class="app_label"> Out of 25</label></td>
                         </tr>
 
                         <tr>
                             <td align="left">
-                                <label id="proof_label" class="app_label">Number of extra documents prooving the residant place</label><br /><input name="proof" type="text" class="app_input" id="proof_input" /> <br />
+                                <label id="achivmentssub-related_label" class="app_label">Subject related achivments</label><br /><input name="achivmentssub-relate" type="text" class="app_input" id="achivmentssub-relate_input" /> <br />
 
                             </td>
-                            <td align="left"><input name="marks3" type="text" class="app_input" id="marks3_input" /></td>
-                            <td align="left"><label id="marks3" class="app_label"> Out of 35</label></td>
+                            <td align="left"><input name="marks23" type="text" class="app_input" id="marks23_input" /></td>
+                            <td align="left"><label id="marks23" class="app_label"> Out of 25</label></td>
 
                         </tr>
 
 
                         <tr>
                             <td align="left">
-                                <label id="othere-sch_label" class="app_label">Number of schools near than this</label><br /> <input name="othere-sch" type="text" class="app_input" id="othere-sch_input" />
+                                <label id="achivmentsout_label" class="app_label">Achivments after leaving school and donations for school development</label><br /> <input name="achivmentsout" type="text" class="app_input" id="achivmentsout_input" />
                             </td>
-                            <td align="left"><input name="marks4" type="text" class="app_input" id="marks4_input" /></td>
-                            <td align="left"><label id="marks4" class="app_label"> Out of 35</label></td>
+                            <td align="left"><input name="marks24" type="text" class="app_input" id="marks24_input" /></td>
+                            <td align="left"><label id="marks24" class="app_label"> Out of 24</label></td>
                         </tr>
 
                     </table>
@@ -141,7 +120,7 @@ require_once('authorize.php');
                     </div>
                 </form>
 
-                <!-- Residential form ends-->
+                <!-- Old Student form ends-->
 
             </div>
             <div class="content_bottom">

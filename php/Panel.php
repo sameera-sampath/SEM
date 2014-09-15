@@ -34,19 +34,19 @@ if(isset($_POST['application'])and strlen($_POST['application']) > 0)
             header("location: App_Resident.php");
             break;
         case "2":
-            header("location: index.php");
+            header("location: App_OldStudent.php");
             break;
         case "3":
-            header("location: index.php");
+            header("location: App_Sibilings_form.php");
             break;
         case "4":
-            header("location: index.php");
+            header("location: App_EducationOfficial.php");
             break;
         case "5":
-            header("location: index.php");
+            header("location: App_GovernmentOfficials_Form.php");
             break;
         case "6":
-            header("location: index.php");
+            header("location: App_ForeignTravel.php");
             break;
         default:
             header("location: App_Resident.php?default=".$selection);
