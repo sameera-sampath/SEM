@@ -33,19 +33,9 @@ $address="";
 $tel="";
 $GND="";
 $GNDNO="";
-$BD="";
-$Diatance="";
-if(isset($_GET['Diatance']))
-{
-    $Diatance=$_GET['Diatance']; // This line is added to take care if your global variable is off
-}
 if(isset($_GET['tel']))
 {
     $tel=$_GET['tel']; // This line is added to take care if your global variable is off
-}
-if(isset($_GET['BD']))
-{
-    $BD=$_GET['BD']; // This line is added to take care if your global variable is off
 }
 if(isset($_GET['GND']))
 {
@@ -75,6 +65,43 @@ if(isset($_GET['Nationalty']))
 {
     $Nationalty=$_GET['Nationalty']; // This line is added to take care if your global variable is off
 }
+
+//Connect to the database
+require_once('connection.php');
+
+///////// Getting the data from Mysql table for District list box//////////
+$quer2="SELECT DISTINCT District_ID,District_Name FROM district order by District_ID";
+///////////// End of query for District list box////////////
+
+///////// Getting the data from Mysql table for Category list box//////////
+$queryC="SELECT DISTINCT Category_ID,Category_Name FROM Category order by Category_ID";
+///////////// End of query for Category list box////////////
+
+///////// Getting the data from Mysql table for Division list box//////////
+if(isset($_GET['cat']))
+{
+    $cat=$_GET['cat']; // This line is added to take care if your global variable is off
+
+}
+if(isset($cat) and strlen($cat) > 0){
+    $quer="SELECT DISTINCT Division_ID,Division_Name FROM Division join Zone on Division.Zone_ID=Zone.Zone_ID where District_ID='".$cat."' order by Division_ID";
+}else{$quer="SELECT DISTINCT Division_ID,Division_Name FROM Division";}
+///////////// End of query for Division list box////////////
+
+///////// Getting the data from Mysql table for School list box//////////
+if(isset($_GET['cat3']))
+{
+    $cat3=$_GET['cat3']; // This line is added to take care if your global variable is off
+}
+if(isset($cat3) and strlen($cat3) > 0){
+    $quer3="SELECT DISTINCT School_ID,School_Name FROM School where Division_ID =$cat3 order by School_ID";
+}
+else{$quer3="SELECT DISTINCT School_ID,School_Name FROM School where Division_ID =null order by School_ID";}
+///////////// End of query for School list box////////////
+if(isset($_GET['scl']))
+{
+    $scl=$_GET['scl']; // This line is added to take care if your global variable is off
+}
 ?>
 <!DOCTYPE html>
 <!--Check whether the user is logged in.-->
@@ -97,9 +124,25 @@ if(isset($_GET['Nationalty']))
         {
             var val=form.fullname.value;
             var val2=form.gReligion.options[form.gReligion.options.selectedIndex].value;
-            var val3=form.nic.value;
+            var val4=form.gcat.options[form.gcat.options.selectedIndex].value;
+            var val5=form.gsubcat.options[form.gsubcat.options.selectedIndex].value;
+            var val6=form.nic.value;
+            var val7=form.tel.value;
+            var val8=form.GND.value;
+            var val9=form.GNDNO.value;
+            var i;
+            var val10;
+            var len1=form.Nationalty.length;
+            for(i=0;i<len1;i++)
+            {
+                if(form.Nationalty[i].checked)
+                {
+                    val10=form.Nationalty[i].value;
+                    break;
+                }
+            }
 
-            self.location='Application.php?stage='+st+'&fullname=' + val + '&greligion=' + val2 + '&nic=' + val3;
+            self.location='Application.php?stage='+st+'&fullname=' + val + '&greligion=' + val2 + '&cat=' + val4 + '&cat3=' + val5 + '&nic=' + val6+ '&tel=' + val7+ '&GND=' + val8+ '&GNDNO=' + val9+ '&Nationalty=' + val10;
         }
 
         function reload4(form,st)
@@ -201,51 +244,12 @@ if(isset($_GET['Nationalty']))
         if(isset($_GET['stage'])){
             $stage = $_GET['stage'];
         }
-
-        //Connect to the database
-        require_once('connection.php');
-
-        ///////// Getting the data from Mysql table for District list box//////////
-        $quer2="SELECT DISTINCT District_ID,District_Name FROM district order by District_ID";
-        ///////////// End of query for District list box////////////
-
-        ///////// Getting the data from Mysql table for Category list box//////////
-        $queryC="SELECT DISTINCT Category_ID,Category_Name FROM Category order by Category_ID";
-        ///////////// End of query for Category list box////////////
-
-        ///////// Getting the data from Mysql table for Division list box//////////
-        if(isset($_GET['cat']))
-        {
-            $cat=$_GET['cat']; // This line is added to take care if your global variable is off
-
-        }
-        if(isset($cat) and strlen($cat) > 0){
-            $quer="SELECT DISTINCT Division_ID,Division_Name FROM Division join Zone on Division.Zone_ID=Zone.Zone_ID where District_ID='".$cat."' order by Division_ID";
-        }else{$quer="SELECT DISTINCT Division_ID,Division_Name FROM Division";}
-        ///////////// End of query for Division list box////////////
-
-        ///////// Getting the data from Mysql table for School list box//////////
-        if(isset($_GET['cat3']))
-        {
-            $cat3=$_GET['cat3']; // This line is added to take care if your global variable is off
-        }
-        if(isset($cat3) and strlen($cat3) > 0){
-            $quer3="SELECT DISTINCT School_ID,School_Name FROM School where Division_ID =$cat3 order by School_ID";
-        }
-        else{$quer3="SELECT DISTINCT School_ID,School_Name FROM School where Division_ID =null order by School_ID";}
-        ///////////// End of query for School list box////////////
-        if(isset($_GET['scl']))
-        {
-            $scl=$_GET['scl']; // This line is added to take care if your global variable is off
-        }
-
         if ($stage == '1') {
         ?>
         <div class="content_title">New Allication - Student Information</div>
-        <div class="content_middle">
-            <form onload="disableselect()" id="stage1" name="f1" action="<?php $handle->validate_st1() ?>" method="post">
+        <div class="content_allication">
+            <form id="stage1" name="f1" action="<?php $handle->validate_st1() ?>" method="post">
                 <span class="error">* required field.</span>
-
 
                 <legend><strong id="SchoolLabel">School :</strong></legend>
                 <label id="district-label" class="app_label">
@@ -370,13 +374,8 @@ if(isset($_GET['Nationalty']))
                     ?>
                 </label> <br />
 
-                <label id="BD-label" class="app_label">
-                    <strong>Birth Day (YYYY-MM-DD)</strong>
-                    <input type="text" name="BD" id="BD" class="app_input"  value="<?php echo $BD;?>">
-                </label><br>
-
                 <label id="Gender-label" class="app_label">
-                    <strong>Gender</strong> </label> <p>
+                    <strong>Gender</strong>
                     <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                     <label>
@@ -386,8 +385,7 @@ if(isset($_GET['Nationalty']))
                     <label>
                         <input type="radio" name="RadioGroup" value="Female" <?php if (isset($gender) && $gender=="Female") echo "checked";?> id="Gender_radio" />
                         Female</label>
-                </p>
-
+                </label>
                 <br />
 
 
@@ -469,8 +467,8 @@ if(isset($_GET['Nationalty']))
             </form>
             <?php } if ($stage == '2') { ?>
             <div class="content_title">New Allication - Information about Father/Mother/Gardian</div>
-            <div class="content_middle">
-            <form id="stage2" name="f2" action="<?php $handle->validate_st2() ?>" method="post">
+            <div class="content_allication">
+            <form id="stage2" name="f2" action="<?php $handle->validate_st1() ?>" method="post">
                 <label id="fullname-label" class="app_label">
                     <strong>Full Name</strong>
                     <input type="text" name="fullname" id="fullname" class="app_input" onchange=reload3(this.form,2) value="<?php echo $fullname;?>">
@@ -504,7 +502,6 @@ if(isset($_GET['Nationalty']))
                     ?>
                 </label> <br />
 
-
                 <legend><strong id="ResidentLabel">Resident :</strong></legend>
                 <label id="gdistrict-label" class="app_label">
                     <strong>Select District</strong>
@@ -512,7 +509,7 @@ if(isset($_GET['Nationalty']))
                         <?php
                         //////////        Starting of District drop downlist /////////
                         $gresult2 = mysql_query ($quer2);
-                        echo "<select name='gcat'><option value=''>Select District</option>";
+                        echo "<select name='gcat' onchange=\"reload3(this.form,2)\"><option value=''>Select District</option>";
                         while($gnoticia2 = mysql_fetch_array($gresult2)) {
                             if($gnoticia2['District_ID']==@$cat){echo "<option selected value='$gnoticia2[District_ID]'>$gnoticia2[District_Name]</option>"."<BR>";}
                             else{echo  "<option value='$gnoticia2[District_ID]'>$gnoticia2[District_Name]</option>";}
@@ -531,9 +528,9 @@ if(isset($_GET['Nationalty']))
                         //////////        Starting of Division drop downlist /////////
                         $gresult = mysql_query ($quer);
                         if(isset($cat) and strlen($cat) > 0){
-                            echo "<select name='gsubcat' ><option value=''>Select Division</option>";
+                            echo "<select name='gsubcat' onchange=\"reload3(this.form,2)\"><option value=''>Select Division</option>";
                         }
-                        else{echo "<select name='gsubcat' ><option value=''>First Select District</option>";}
+                        else{echo "<select name='gsubcat' onchange=\"reload3(this.form,2)\"><option value=''>First Select District</option>";}
                         while($gnoticia = mysql_fetch_array($gresult)) {
                             if($gnoticia['Division_ID']==@$cat3){echo "<option selected value='$gnoticia[Division_ID]'>$gnoticia[Division_Name]</option>"."<BR>";}
                             else{echo  "<option value='$gnoticia[Division_ID]'>$gnoticia[Division_Name]</option>";}
@@ -564,30 +561,9 @@ if(isset($_GET['Nationalty']))
                     <input type="text" name="tel" id="tel" class="app_input" maxlength="10"  value="<?php echo $tel;?>">
                 </label><br>
 
-                <label id="gardian_label" class="app_label">
-                    <strong>Applicant Type</strong> </label>
-                <p>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                    <label>
-                        <input type="radio" name="applicant" value="Father" id="Gardian_radio" />
-                        Father</label>
-                    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label>
-                        <input type="radio" name="applicant" value="Mother" id="Gardian_radio" />
-                        Mother</label>
-
-                    <br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label>
-                        <input type="radio" name="applicant" value="Gardian" id="Gardian_radio" />
-                        Gardian</label> </p>
-
-                <br />
-
                 <label id="nic-label" class="app_label">
                     <strong>NIC Number</strong>
-                    <input type="text" name="nic" id="nic" class="app_input" maxlength="10" value="<?php echo $nic;?>">
+                    <input type="text" name="nic" id="nic" class="app_input" maxlength="10"  value="<?php echo $nic;?>">
                 </label><br>
 
                 <label id="National-label" class="app_label">
@@ -643,10 +619,6 @@ if(isset($_GET['Nationalty']))
                 </select>
                 </label><br />
 
-                <label id="Diatance-label" class="app_label">
-                    <strong>Distance to School From Home (Km)</strong>
-                    <input type="text" name="Diatance" id="Diatance" class="app_input"  value="<?php echo $Diatance;?>">
-                </label><br>
 
                     <div class="button">
                         <input id="submit" name="submit" type="submit" value="Proceed" class="submit_button">

@@ -1,0 +1,19 @@
+{
+    "name": "Sameera/sem",
+    "description": "Student Enrolment Module",
+    "authors": [
+        {
+            "name": "sameera-sampath",
+            "email": "sameera.sampath@gmail.com"
+        }
+    ],
+    "require": {
+		"php": ">=5.0.0"
+    },
+	"require-dev": {
+        "phpunit/phpunit": "4.2.*",
+		"phpunit/php-invoker": "*",
+		"phpunit/dbunit": ">=1.2",
+		"phpunit/phpunit-selenium": ">=1.2"
+    }
+}

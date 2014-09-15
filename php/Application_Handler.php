@@ -14,31 +14,27 @@ class Application_Handler {
     private $databaseUsersTable;
     private $cryptMethod;
     private $showMessage;
-    public $school="";
-    public $category="";
     public $schoolID="";
     public $categoryID="";
     public $fullName="";
     public $name_initials="";
-    public $surName="";
+    public $Last_Name="";
     public $gender="";
     public $religion="";
     public $medium="";
-    public $birthYear="";
-    public $birthMonth="";
     public $birthDate="";
     public $address="";
     public $applicant="";
     public $app_fullName="";
     public $app_initials="";
     public $app_lastName="";
-    public $app_NIC="";
-    public $app_Srilankan="";
+    public $NIC="";
+    public $Nationalty="";
     public $app_religion="";
     public $app_address="";
     public $tel="";
-    public $district="";
-    public $division="";
+    public $districtID="";
+    public $divisionID="";
     public $GND="";
     public $GNDno="";
     public $distance="";
@@ -101,29 +97,165 @@ public $error_flag = false;
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
-        return $data;
+        return mysql_real_escape_string($data);
+    }
+
+    static public function initial($name)
+    {
+        $array = explode(" ", $name);
+        $length = count($array);
+        $initials = "";
+        for ($x=0; $x<$length-1; $x++) {
+            $init=$array[$x];
+            $initials=$initials.$init[0];
+        }
+        return $initials;
+    }
+
+    static public function LastName($name)
+    {
+        $array = explode(" ", $name);
+        $length = count($array);
+        return $array[$length-1];
+    }
+
+    public function initialize_st1()
+    {
+        global $fullName,$schoolID,$categoryID,$Last_Name,$birthDate,$religion,$gender,$Name_initials,$medium;
+        $fullName = $this->clean(@$_POST["name"]);
+        $schoolID=$this->clean(@$_POST["subcat3"]);
+        $categoryID=$this->clean(@$_POST["category"]);
+        $Last_Name = $this->LastName(@$fullName);
+        $birthDate = $this->clean(@$_POST["BD"]);
+        $religion = $this->clean(@$_POST["Religion"]);
+        $religion=$this->religion($religion);
+        $gender = $this->clean(@$_POST["RadioGroup"]);
+        $Name_initials=$this->initial(@$fullName);
+        $medium = $this->clean(@$_POST["RadioGroup1"]);
+    }
+
+    public function initialize_st2()
+    {
+        global $distance,$Nationalty,$NIC,$tel,$app_address,$app_fullName,$applicant,$districtID,$app_lastName,$divisionID,$app_religion,$GND,$app_initials,$GNDno;
+        $distance = $this->clean(@$_POST["Diatance"]);
+        $Nationalty = $this->clean(@$_POST["Nationalty"]);
+        $NIC = $this->clean(@$_POST["nic"]);
+        $tel= $this->clean(@$_POST["tel"]);
+        $app_address= $this->clean(@$_POST["address"]);
+        $app_fullName = $this->clean(@$_POST["fullname"]);
+        $applicant=$this->clean(@$_POST["applicant"]);
+        $districtID=$this->clean(@$_POST["gcat"]);
+        $app_lastName = $this->LastName(@$app_fullName);
+        $divisionID = $this->clean(@$_POST["gsubcat"]);
+        $app_religion = $this->clean(@$_POST["gReligion"]);
+        $app_religion=$this->religion($app_religion);
+        $GND = $this->clean(@$_POST["GND"]);
+        $app_initials=$this->initial(@$app_fullName);
+        $GNDno = $this->clean(@$_POST["GNDNO"]);
     }
 
     public function validate_st1()
     {
+        global $fullName,$schoolID,$categoryID,$Last_Name,$birthDate,$religion,$gender,$Name_initials,$medium;
         $error_msg_array = array();
         $error_flag = false;
         if($_SERVER["REQUEST_METHOD"] == "POST")
         {
+            $this->initialize_st1();
+            $_SESSION['fullName'] = $fullName;
+            $_SESSION['schoolID'] = $schoolID;
+            $_SESSION['categoryID'] = $categoryID;
+            $_SESSION['birthDate'] = $birthDate;
+            $_SESSION['religion'] = $religion;
+            $_SESSION['gender'] = $gender;
+            $_SESSION['medium'] = $medium;
 
-            $fullName = clean($_POST["name"]);
-            $name = clean($_POST["name"]);
-            $email = clean($_POST["email"]);
-            $website = clean($_POST["website"]);
-
-            $gender = clean($_POST["gender"]);
-            header("location: Application.php?stage=2");
+            header("location: Application.php?stage=2&religion=".$religion);
         }
-
-
     }
 
+    public function reassignst1()
+    {
+        global $fullName,$schoolID,$categoryID,$Last_Name,$birthDate,$religion,$gender,$Name_initials,$medium;
+        $fullName = $_SESSION['fullName'];
+        $schoolID=$_SESSION['schoolID'];
+        $categoryID=$_SESSION['categoryID'];
+        $Last_Name = $this->LastName(@$fullName);
+        $birthDate = $_SESSION['birthDate'];
+        $religion = $_SESSION['religion'];
+        $gender = $_SESSION['gender'];
+        $Name_initials=$this->initial(@$fullName);
+        $medium = $_SESSION['medium'];
+        //Unset the variables stored in session
+        unset($_SESSION['fullName']);
+        unset($_SESSION['schoolID']);
+        unset($_SESSION['categoryID']);
+        unset($_SESSION['birthDate']);
+        unset($_SESSION['religion']);
+        unset($_SESSION['gender']);
+        unset($_SESSION['medium']);
+    }
 
+    public function validate_st2()
+    {
+        global $fullName,$schoolID,$categoryID,$Last_Name,$birthDate,$religion,$gender,$Name_initials,$medium;
+        global $distance,$Nationalty,$NIC,$tel,$app_address,$app_fullName,$applicant,$districtID,$app_lastName,$divisionID,$app_religion,$GND,$app_initials,$GNDno;
+        $error_msg_array = array();
+        $error_flag = false;
+        if($_SERVER["REQUEST_METHOD"] == "POST")
+        {
+            $this->reassignst1();
+            $this->initialize_st2();
+            $this->insert();
+
+            header("location: Enrolment.php?name=".$app_address);
+        }
+    }
+
+    public function insert()
+    {
+        //Connect to the database
+        require_once('connection.php');
+        global $fullName,$schoolID,$categoryID,$Last_Name,$birthDate,$religion,$gender,$Name_initials,$medium;
+        global $distance,$Nationalty,$NIC,$tel,$app_address,$app_fullName,$applicant,$districtID,$app_lastName,$divisionID,$app_religion,$GND,$app_initials,$GNDno;
+        $sql="INSERT INTO Application ".
+            "(Full_Name, Initials, Last_Name, Category_ID, School_ID, Gender, Religion, Telephone, Education_Medium, Birth_Day, Applicant_Type, Name_Applicant, Applicant_Initials, Applicant_LastName, NIC, Nationalty, Applicant_Religion, Address, District_ID, Division_ID, GND, GND_NO, Distance_To_School_KM) ".
+            "VALUES ('$fullName', '$Name_initials', '$Last_Name', '$categoryID', '$schoolID', '$gender', '$religion', '$tel', '$medium', '$birthDate', '$applicant', '$app_fullName', '$app_initials', '$app_lastName', '$NIC', '$Nationalty', '$app_religion', '$app_address', '$districtID', '$divisionID', '$GND', '$GNDno', '$distance');";
+        $retval = mysql_query( $sql);
+        if(! $retval )
+        {
+            die('Could not enter data: ' . mysql_error());
+        }
+        else{
+        }
+        echo "Entered data successfully\n";
+    }
+
+    public function religion($reli)
+    {
+                switch($reli)
+                {
+                    case "1":
+                        $data='Buddhism';
+                        break;
+                    case "2":
+                        $data='Hindu';
+                        break;
+                    case "3":
+                        $data='Catholic';
+                        break;
+                    case "4":
+                        $data='Christian';
+                        break;
+                    case "5":
+                        $data='Islam';
+                        break;
+                    case "6":
+                        $data='Othere';
+                        break;
+                }
+            return $data;
+    }
     public function getMessage($message_text, $message_html_tag_open=null, $message_html_tag_close=null, $message_die=false)
     {
         if($this->showMessage)

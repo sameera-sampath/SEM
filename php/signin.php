@@ -43,7 +43,7 @@
                 <td><input id="username" type="text" name="username"/></td>
             </tr>
             <tr>
-                <td id="Pass">Password <b style="text-align: right">:</b> </td>
+                <td id="Pass">Password <b style="text-align: right" >:</b> </td>
                 <td><input id="password" type="password" name="password" /></td>
             </tr>
             <tr>
