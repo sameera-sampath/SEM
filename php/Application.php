@@ -241,7 +241,7 @@ if(isset($_GET['Nationalty']))
 
         if ($stage == '1') {
         ?>
-        <div class="content_title">New Allication - Student Information</div>
+        <div class="content_title">New Application - Student Information</div>
         <div class="content_middle">
             <form onload="disableselect()" id="stage1" name="f1" action="<?php $handle->validate_st1() ?>" method="post">
                 <span class="error">* required field.</span>
@@ -283,6 +283,7 @@ if(isset($_GET['Nationalty']))
                 echo "</select>";
                 //////////////////  This will end the Division drop down list ///////////
                 ?>
+                        <span class="error">*</span>
 
                     </div>
                 </label>
@@ -303,7 +304,7 @@ if(isset($_GET['Nationalty']))
                 }
                 echo "</select>";
                 //////////////////  This will end the School drop down list ///////////
-                ?>
+                ?><span class="error">*</span>
                     </div>
                 </label>
 
@@ -321,7 +322,7 @@ if(isset($_GET['Nationalty']))
                         }
                         echo "</select>";
                         //////////////////  This will end the Category drop down list ///////////
-                        ?>
+                        ?><span class="error">*</span>
                     </div>
                 </label>
 
@@ -336,7 +337,7 @@ if(isset($_GET['Nationalty']))
                     {
                         echo("<input type='text' name='name' id='name' size='90' onchange=\"reload4(this.form,1)\"/>");
                     }
-                    ?>
+                    ?><span class="error">*</span>
                 </label> <br />
 
 
@@ -373,10 +374,11 @@ if(isset($_GET['Nationalty']))
                 <label id="BD-label" class="app_label">
                     <strong>Birth Day (YYYY-MM-DD)</strong>
                     <input type="text" name="BD" id="BD" class="app_input"  value="<?php echo $BD;?>">
+                    <span class="error">*</span>
                 </label><br>
 
-                <label id="Gender-label" class="app_label">
-                    <strong>Gender</strong> </label> <p>
+                <p><label id="Gender-label" class="app_label">
+                    <strong>Gender</strong> </label> <span class="error">*</span>
                     <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                     <label>
@@ -392,7 +394,7 @@ if(isset($_GET['Nationalty']))
 
 
 
-
+                <p>
                 <label id="Religion-label" class="app_label" > <strong>Religion</strong>
 
 
@@ -432,11 +434,11 @@ if(isset($_GET['Nationalty']))
                     <option value="4"> Christian</option>
                     <option value="5"> Islam</option>
                     <option value="6"> Other</option>
-                </select>
-                </label><br />
+                </select><span class="error">*</span>
+                </label><br /></p>
 
-                <label id="Edu_medium-label" class="app_label">
-                    <strong>Education Medium</strong> </label> <p>
+                <p><label id="Edu_medium-label" class="app_label">
+                    <strong>Education Medium</strong><span class="error">*</span> </label>
                     <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                     <label>
@@ -471,9 +473,11 @@ if(isset($_GET['Nationalty']))
             <div class="content_title">New Allication - Information about Father/Mother/Gardian</div>
             <div class="content_middle">
             <form id="stage2" name="f2" action="<?php $handle->validate_st2() ?>" method="post">
+                <span class="error">* required field.</span>
                 <label id="fullname-label" class="app_label">
                     <strong>Full Name</strong>
-                    <input type="text" name="fullname" id="fullname" class="app_input" onchange=reload3(this.form,2) value="<?php echo $fullname;?>">
+                    <input type="text" name="fullname" id="fullname" class="app_input" size='90' onchange=reload3(this.form,2) value="<?php echo $fullname;?>">
+                    <span class="error">*</span>
                 </label><br>
                 <label id="ginitial-label" class="app_label">
                     <strong>Initials</strong>
@@ -519,7 +523,7 @@ if(isset($_GET['Nationalty']))
                         }
                         echo "</select>";
                         //////////////////  This will end the District drop down list ///////////
-                        ?>
+                        ?><span class="error">*</span>
 
                     </div>
                 </label>
@@ -540,24 +544,24 @@ if(isset($_GET['Nationalty']))
                         }
                         echo "</select>";
                         //////////////////  This will end the Division drop down list ///////////
-                        ?>
+                        ?><span class="error">*</span>
                     </div>
                 </label>
 
                 <label id="GND-label" class="app_label">
                     <strong>Grama Niladari Division</strong>
                     <input type="text" name="GND" id="GND" class="app_input"  value="<?php echo $GND;?>">
-                </label><br>
+                </label><br><span class="error">*</span>
 
                 <label id="GNDNO-label" class="app_label">
                     <strong>Grama Niladari Division Number</strong>
                     <input type="text" name="GNDNO" id="GNDNO" class="app_input"  value="<?php echo $GNDNO;?>">
-                </label><br>
+                </label><br><span class="error">*</span>
 
                 <label id="address-label" class="app_label">
                     <strong>Address</strong>
                     <textarea rows="4" cols="40" id="address-text"name="address" class="app_input" ><?php echo $address;?></textarea>
-                </label><br>
+                </label><br><span class="error">*</span>
 
                 <label id="tel-label" class="app_label">
                     <strong>Telephone Number</strong>
@@ -565,7 +569,7 @@ if(isset($_GET['Nationalty']))
                 </label><br>
 
                 <label id="gardian_label" class="app_label">
-                    <strong>Applicant Type</strong> </label>
+                    <strong>Applicant Type</strong><span class="error">*</span> </label>
                 <p>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -588,10 +592,11 @@ if(isset($_GET['Nationalty']))
                 <label id="nic-label" class="app_label">
                     <strong>NIC Number</strong>
                     <input type="text" name="nic" id="nic" class="app_input" maxlength="10" value="<?php echo $nic;?>">
+                    <span class="error">*</span>
                 </label><br>
 
                 <label id="National-label" class="app_label">
-                    <strong>Nationalty</strong>
+                    <strong>Nationalty</strong><span class="error">*</span>
                     <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                     <label>
@@ -640,7 +645,7 @@ if(isset($_GET['Nationalty']))
                     <option value="4"> Christian</option>
                     <option value="5"> Islam</option>
                     <option value="6"> Other</option>
-                </select>
+                </select><span class="error">*</span>
                 </label><br />
 
                 <label id="Diatance-label" class="app_label">

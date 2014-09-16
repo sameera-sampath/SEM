@@ -16,6 +16,22 @@ function reduce($original,$val,$rate)
     $rate=floatval($rate);
     return $original-($val*$rate);
 }
+/* Old Student */
+function grades($num)
+{
+    if($num<13)
+    {
+        return 26;
+    }
+    else{
+        return 2*$num;
+    }
+}
+/*
+* Old Student End
+ *
+ */
+
 /* Residential */
 function near($residence,$no)
 {

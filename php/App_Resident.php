@@ -36,7 +36,7 @@ if(isset($_POST['submit']))
             die('Could not enter data: ' . mysql_error());
         }
         else{
-            header("location: Panel.php?insert=Success");
+            header("location: UnsetSession_SelectionPanel.php");
         }
     }
     elseif($_POST['calc']=="Calculate")
@@ -66,6 +66,7 @@ else
         }
     }
 }
+// For the Application part
 $School_Name=@$_SESSION['SESS_School_Name'];
 $Category_Name=@$_SESSION['SESS_Category_Name'];
 $Full_Name=@$_SESSION['SESS_Full_Name'];
@@ -146,8 +147,9 @@ $Distance=@$_SESSION['SESS_Distance'];
                 <!-- Residential form-->
 
                 <form id="stage1" action="<?php $_PHP_SELF ?>" method="post">
+
+                    <!-- Application Header -->
                     <table class="resident" id="app_table">
-                        <!-- Application Header -->
                         <tr><th align="left" style="font-size: 18px">School :<?php echo @$School_Name; ?></th>
                             <th colspan="2" align="center" style="font-size: 18px">Application Category:  <?php echo @$Category_Name; ?></th>
                         </tr>

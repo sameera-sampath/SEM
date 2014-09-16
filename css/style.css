@@ -23,6 +23,9 @@ tr
     font-size: 20px;
     color: #ff0000;
 }
+.error{
+    color: #ff0000;
+}
 #User, #Pass{
     text-align:left;
     font-size: 16px;
