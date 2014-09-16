@@ -1,18 +1,12 @@
 <?php
-namespace SEM\Tests;
+namespace SEM;
 
-
-use SEM\Application_Handler;
+require('..\Application_Handler.php');
 
 class Application_HandlerTest extends \PHPUnit_Framework_TestCase
 {
     // contains the object of the Application_Handler class
     var $abc;
-
-    // constructor of the test suite
-    function __construct($name) {
-        $this->PHPUnit_TestCase($name);
-    }
 
     // called before the test functions will be executed
     // this function is defined in PHPUnit_TestCase and overwritten
@@ -78,15 +72,14 @@ class Application_HandlerTest extends \PHPUnit_Framework_TestCase
     public function cleanProvider()
     {
         return array(
-            array('sameera.nandasiri@gmail.com', 'sameera.nandasiri@gmail.com'),
-            array('sameera&sampathn \str', 'sameera&sampath\n \\str'),
-            array('abc n b""sfed n t /f', 'abc n b""sfed \n \t /f'),
-            array('Sameera Sampath', 'Sameera Sampath')
+            array('sameera.nandasiri@gmail.com' , 'sameera.nandasiri@gmail.com'),
+            array('sameera&amp;sampathn str' , 'sameera&sampath\n \\str'),
+            array('abc n b&quot;&quot;sfed n t /f' , 'abc n b""sfed \n \t /f'),
+            array('Sameera Sampath' , 'Sameera Sampath'),
         );
     }
 
     /**
-     *
      * @dataProvider religionProvider
      */
     public function testreligion($expected,$origional)
@@ -98,10 +91,10 @@ class Application_HandlerTest extends \PHPUnit_Framework_TestCase
     public function religionProvider()
     {
         return array(
-            array("Buddhism", "1"),
-            array('Hindu', "2"),
-            array('Catholic', "3"),
-            array('Christian', "4")
+            array("Buddhism" , "1"),
+            array("Hindu" , "2"),
+            array("Catholic" , "3"),
+            array("Christian" , "4"),
         );
     }
 

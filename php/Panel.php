@@ -14,41 +14,78 @@ if(isset($_POST['application'])and strlen($_POST['application']) > 0)
     if(isset($_POST['category']) and strlen($_POST['category']) > 0)
     {
         $selection= $_POST['category'];
-    }
-    else{
-        $sql="SELECT Application_ID,Category_ID FROM Application where Application_ID=$app";
+
+        $sql="SELECT Application_ID,School_Name,Birth_Day,Gender,Religion,Education_Medium,Address,Distance_To_School_KM,Telephone,Full_Name,Applicant_Initials,Applicant_LastName,Applicant_Type,NIC FROM Application, School WHERE Application_ID=$app AND Application.School_ID = School.School_ID";
         $resultses = mysql_query ($sql);
         while($resultSet = mysql_fetch_array($resultses))
         {
-            if($resultSet[Application_ID]==$app)
+            if($resultSet['Application_ID']==$app)
             {
-                $selection = $resultSet[Category_ID];
+                $_SESSION['SESS_School_Name'] = $resultSet['School_Name'];
+                $_SESSION['SESS_Full_Name']=$resultSet['Full_Name'];
+                $_SESSION['SESS_NIC']=$resultSet['NIC'];
+                $_SESSION['SESS_Applicant_Name']=$resultSet['Applicant_Type']." :     ".$resultSet['Applicant_Initials']." ".$resultSet['Applicant_LastName'];
+                $_SESSION['SESS_BD']="Birth Day       : ".$resultSet['Birth_Day'];
+                $_SESSION['SESS_Gender']="Gender          : ".$resultSet['Gender'];
+                $_SESSION['SESS_Medium']="Language Medium : ".$resultSet['Education_Medium'];
+                $_SESSION['SESS_Religion']="Religion        : ".$resultSet['Religion'];
+                $_SESSION['SESS_Address']="Address   : ".$resultSet['Address'];
+                $_SESSION['SESS_Distance']="Distance To School: ".$resultSet['Distance_To_School_KM']."Km";
+                $_SESSION['SESS_Telephone']="Telephone : ".$resultSet['Telephone'];
             }
-
+        }
+    }
+    else{
+        $sql="SELECT Application_ID,Category_ID,School_Name,Birth_Day,Gender,Religion,Education_Medium,Address,Distance_To_School_KM,Telephone,Full_Name,Applicant_Initials,Applicant_LastName,Applicant_Type,NIC FROM Application, School WHERE Application_ID=$app AND Application.School_ID = School.School_ID";
+        $resultses = mysql_query ($sql);
+        while($resultSet = mysql_fetch_array($resultses))
+        {
+            if($resultSet['Application_ID']==$app)
+            {
+                $selection = $resultSet['Category_ID'];
+                $_SESSION['SESS_School_Name'] = $resultSet['School_Name'];
+                $_SESSION['SESS_Full_Name']=$resultSet['Full_Name'];
+                $_SESSION['SESS_NIC']=$resultSet['NIC'];
+                $_SESSION['SESS_Applicant_Name']=$resultSet['Applicant_Type']." :     ".$resultSet['Applicant_Initials']." ".$resultSet['Applicant_LastName'];
+                $_SESSION['SESS_BD']="Birth Day       : ".$resultSet['Birth_Day'];
+                $_SESSION['SESS_Gender']="Gender          : ".$resultSet['Gender'];
+                $_SESSION['SESS_Medium']="Language Medium : ".$resultSet['Education_Medium'];
+                $_SESSION['SESS_Religion']="Religion        : ".$resultSet['Religion'];
+                $_SESSION['SESS_Address']="Address   : ".$resultSet['Address'];
+                $_SESSION['SESS_Distance']="Distance To School: ".$resultSet['Distance_To_School_KM']."Km";
+                $_SESSION['SESS_Telephone']="Telephone : ".$resultSet['Telephone'];
+            }
         }
     }
     $_SESSION['SESS_Category'] = $selection;
     switch($selection)
     {
         case 1:
+            $_SESSION['SESS_Category_Name']="Residential";
             header("location: App_Resident.php");
             break;
         case "2":
+            $_SESSION['SESS_Category_Name']="Old Student";
             header("location: App_OldStudent.php");
             break;
         case "3":
-            header("location: App_Sibilings_form.php");
+            $_SESSION['SESS_Category_Name']="Siblings";
+            header("location: App_Siblings_form.php");
             break;
         case "4":
+            $_SESSION['SESS_Category_Name']="Education Official";
             header("location: App_EducationOfficial.php");
             break;
         case "5":
+            $_SESSION['SESS_Category_Name']="Government Officials";
             header("location: App_GovernmentOfficials_Form.php");
             break;
         case "6":
+            $_SESSION['SESS_Category_Name']="Foreign Travel";
             header("location: App_ForeignTravel.php");
             break;
         default:
+            $_SESSION['SESS_Category_Name']="Residential";
             header("location: App_Resident.php?default=".$selection);
     }
     exit();

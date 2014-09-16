@@ -167,3 +167,9 @@ img{
 #name{
 }
 
+#app_table{
+    background: -webkit-linear-gradient(left, #b079ff, #0000dc, #cbb8ff); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #b079ff, #0000dc, #cbb8ff); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right,#b079ff, #0000dc, #cbb8ff); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #b079ff, #0000dc, #cbb8ff); /* Standard syntax */
+}

@@ -123,12 +123,17 @@ require_once('authorize.php');
 
                         </tr>
 
+                        <tr><td>
+                                <div class="button" align="center">
+                                    <input id="submit" name="submit" type="submit" value="Submit" class="submit_button">
+                                </div></td>
+                            <td>
+                                <div class="button" align="center">
+                                    <input id="submit" name="calc" type="submit" value="Calculate" class="submit_button">
+                                </div></td><td></td>
+                        </tr>
                     </table>
-
-
-                    <div class="button" align="center">
-                        <input id="submit" name="submit" type="submit" value="Submit" class="submit_button">
-                    </div>
+                </form>
 
                 <!-- Foreign Travel form ends-->
 

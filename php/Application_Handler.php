@@ -206,9 +206,9 @@ public $error_flag = false;
         {
             $this->reassignst1();
             $this->initialize_st2();
-            $this->insert();
+            $message=$this->insert();
 
-            header("location: Enrolment.php?name=".$app_address);
+            header("location: Enrolment.php?newApp=".$message);
         }
     }
 
@@ -225,10 +225,11 @@ public $error_flag = false;
         if(! $retval )
         {
             die('Could not enter data: ' . mysql_error());
+            return "Fail";
         }
         else{
+            return "Succes";
         }
-        echo "Entered data successfully\n";
     }
 
     public function religion($reli)

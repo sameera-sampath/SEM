@@ -112,12 +112,16 @@ require_once('authorize.php');
                             <td align="left"><label id="marks24" class="app_label"> Out of 24</label></td>
                         </tr>
 
+                        <tr><td>
+                                <div class="button" align="center">
+                                    <input id="submit" name="submit" type="submit" value="Submit" class="submit_button">
+                                </div></td>
+                            <td>
+                                <div class="button" align="center">
+                                    <input id="submit" name="calc" type="submit" value="Calculate" class="submit_button">
+                                </div></td><td></td>
+                        </tr>
                     </table>
-
-
-                    <div class="button" align="center">
-                        <input id="submit" name="submit" type="submit" value="Submit" class="submit_button">
-                    </div>
                 </form>
 
                 <!-- Old Student form ends-->

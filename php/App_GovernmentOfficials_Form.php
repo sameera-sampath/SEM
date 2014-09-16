@@ -131,13 +131,16 @@ require_once('authorize.php');
                             <td align="left"><label id="marks35_label" class="app_label"> Out of 10</label></td>
                         </tr>
 
-
+                        <tr><td>
+                                <div class="button" align="center">
+                                    <input id="submit" name="submit" type="submit" value="Submit" class="submit_button">
+                                </div></td>
+                            <td>
+                                <div class="button" align="center">
+                                    <input id="submit" name="calc" type="submit" value="Calculate" class="submit_button">
+                                </div></td><td></td>
+                        </tr>
                     </table>
-
-
-                    <div class="button" align="center">
-                        <input id="submit" name="submit" type="submit" value="Submit" class="submit_button">
-                    </div>
                 </form>
 
                 <!-- Education Officials' Children form ends-->
