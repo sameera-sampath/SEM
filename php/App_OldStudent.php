@@ -51,7 +51,7 @@ if(isset($_POST['submit']))
             header("location: UnsetSession_SelectionPanel.php");
         }
     }
-    elseif($_POST['calc']=="Calculate")
+    elseif($_POST['submit']=="Calculate")
     {  }
 }
 else
@@ -244,7 +244,7 @@ else
                                 </div></td>
                             <td>
                                 <div class="button" align="center">
-                                    <input id="submit" name="calc" type="submit" value="Calculate" class="submit_button">
+                                    <input id="submit" name="submit" type="submit" value="Calculate" class="submit_button">
                                 </div></td><td></td>
                         </tr>
                     </table>

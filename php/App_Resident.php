@@ -39,7 +39,7 @@ if(isset($_POST['submit']))
             header("location: UnsetSession_SelectionPanel.php");
         }
     }
-    elseif($_POST['calc']=="Calculate")
+    elseif($_POST['submit']=="Calculate")
     {  }
 }
 else
@@ -248,6 +248,7 @@ $Distance=@$_SESSION['SESS_Distance'];
                             <td align="left"><input name="marks4" type="text" class="app_input" id="marks4_input" <?php echo("value='".@$marks4."' disabled"); ?> /></td>
                             <td align="left"><label id="marks4" class="app_label"> Out of 50</label></td>
                         </tr>
+                            <!-- Common End of The Form-->
                         <tr>
                             <td align="right">
                                 <label id=" Total_label">Total</label><br />
@@ -261,7 +262,7 @@ $Distance=@$_SESSION['SESS_Distance'];
                     </div></td>
                         <td>
                     <div class="button" align="center">
-                        <input id="submit" name="calc" type="submit" value="Calculate" class="submit_button">
+                        <input id="submit" name="submit" type="submit" value="Calculate" class="submit_button">
                     </div></td><td></td>
                     </tr>
                     </table>

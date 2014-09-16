@@ -2,6 +2,26 @@
     <!--Check whether the user is logged in.-->
 <?php
 require_once('authorize.php');
+$app=intval(@$_SESSION['SESS_Appication']);
+$cat=intval(@$_SESSION['SESS_Category']);
+
+require('Validate.php');
+//Connect to the database
+require_once('connection.php');
+
+// For the Application part
+$School_Name=@$_SESSION['SESS_School_Name'];
+$Category_Name=@$_SESSION['SESS_Category_Name'];
+$Full_Name=@$_SESSION['SESS_Full_Name'];
+$Medium=@$_SESSION['SESS_Medium'];
+$BD=@$_SESSION['SESS_BD'];
+$Gender=@$_SESSION['SESS_Gender'];
+$Religion=@$_SESSION['SESS_Religion'];
+$Applicant=@$_SESSION['SESS_Applicant_Name'];
+$Address=@$_SESSION['SESS_Address'];
+$NIC=@$_SESSION['SESS_NIC'];
+$Telephone=@$_SESSION['SESS_Telephone'];
+$Distance=@$_SESSION['SESS_Distance'];
 ?>
 
 <html>
@@ -70,6 +90,30 @@ require_once('authorize.php');
                 <!-- Education Officials' Children form-->
 
                 <form id="stage1" action="<?php $_PHP_SELF ?>" method="post">
+
+                    <!-- Application Header -->
+                    <table class="resident" id="app_table">
+                        <tr><th align="left" style="font-size: 18px">School :<?php echo @$School_Name; ?></th>
+                            <th colspan="2" align="center" style="font-size: 18px">Application Category:  <?php echo @$Category_Name; ?></th>
+                        </tr>
+                        <tr><td align="left" style="font-size: 14px">
+                                <label class="app_label">Student Name : <?php echo @$Full_Name; ?></label><br/>
+                                <label class="app_label"><?php echo @$Medium; ?></label><br/>
+                                <label class="app_label"><?php echo @$BD; ?></label><br/>
+                                <label class="app_label"><?php echo @$Gender; ?></label><br/>
+                                <label class="app_label"><?php echo @$Religion; ?></label><br/>
+                            </td>
+                            <td colspan="2" align="center" style="font-size: 14px">
+                                <label class="app_label"><?php echo @$Applicant; ?></label><br/>
+                                <label class="app_label"><?php echo @$Address; ?></label><br/>
+                                <label class="app_label"><?php echo @$NIC; ?></label><br/>
+                                <label class="app_label"><?php echo @$Telephone; ?></label><br/>
+                                <label class="app_label"><?php echo @$Distance; ?></label><br/>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- Application Header End -->
+                    <!-- Custom decision support by Application category -->
                     <table class="resident" id="resident_table">																       <tr>
                             <th width="70%" ></th>
                             <th width="15%" align="center">Marks</th>
@@ -77,29 +121,33 @@ require_once('authorize.php');
                         </tr>
                         <tr>
                             <td align="left">
-                                <label id="post-service_label" class="app_label">Years of service as a permenent emploee in the perticular organisation</label> <br /><input name="post-service" type="text" class="app_input" id="post-service_input" /><br />
+                                <label id="service_label" class="app_label">Years of service as a Permanent employee</label> <br />
+                                <input name="service" type="text" class="app_input" id="service_input" <?php echo("value='".@$service."'"); ?>/><br />
 
                             </td>
-                            <td align="left"><input name="marks31" type="text" class="app_input" id="marks31_input" /></td>
+                            <td align="left"><input name="marks31" type="text" class="app_input" id="marks31_input" <?php echo("value='".@$marks31."' disabled"); ?>/></td>
 
                             <td align="left"><label id="marks31_lable" class="app_label"> Out of 20</label></td>
                         </tr>
                         <tr>
                             <td align="left">
 
-                                <label id="distance_label" class="app_label">Distance between resident place and work place</label><br /><input name="distance" type="text" class="app_input" id="distance_input" />
+                                <label id="distance_label" class="app_label">Distance between resident and work place</label><br />
+                                <input name="distance" type="text" class="app_input" id="distance_input" <?php echo("value='".@$distance."'"); ?>/>
                             </td>
-                            <td align="left"><input name="marks32" type="text" class="app_input" id="marks32_input" /></td>
+                            <td align="left"><input name="marks32" type="text" class="app_input" id="marks32_input" <?php echo("value='".@$marks32."' disabled"); ?>/></td>
                             <td align="left"><label id="marks32_label" class="app_label"> Out of 35</label></td>
                         </tr>
 
                         <tr>
                             <td align="left">
-                                <label id="remote-servicename_label" class="app_label">years of if engaging remote sevice in a School</label><br /><input name="remote-servicename" type="text" class="app_input" id="remote-servicename_input" /> <br />
-                                <label id="remote-sevicetime_label" class="app_label">Years of service if engaged in remote service</label><br /> <input name="remote-sevicetime" type="text" class="app_input" id="remote-sevicetime_input" /><br />
+                                <label id="remoteCurrent_label" class="app_label">years of service if currently engaging remote service in a School</label><br />
+                                <input name="remoteCurrent" type="text" class="app_input" id="remoteCurrent_input" <?php echo("value='".@$remoteCurrent."'"); ?>/> <br />
+                                <label id="remote_label" class="app_label">Years of service if engaged in remote service</label><br />
+                                <input name="remote" type="text" class="app_input" id="remote_input" <?php echo("value='".@$remote."'"); ?>/><br />
 
                             </td>
-                            <td align="left"><input name="marks33" type="text" class="app_input" id="marks33_input" /></td>
+                            <td align="left"><input name="marks33" type="text" class="app_input" id="marks33_input" <?php echo("value='".@$marks33."' disabled"); ?>/></td>
                             <td align="left"><label id="marks33" class="app_label"> Out of 25</label>
 
                             </td>
@@ -109,15 +157,19 @@ require_once('authorize.php');
                         <tr>
                             <td align="left">
 
-                                <label id="holiday_label" class="app_label">Number of holidays not claimed</label><br /><label>2014</label><input name="2014" type="text" class="app_input" id="2014_input" />
-
-                                <br /><label>Past 1st year</label><input name="2013" type="text" class="app_input" id="2013_input" />
-                                <br /><label>Past 2nd year</label><input name="2012" type="text" class="app_input" id="2012_input" />
-                                <br /><label>Past 3rd year</label><input name="2011" type="text" class="app_input" id="2011_input" />
-                                <br /><label>Past 4th year</label><input name="2010" type="text" class="app_input" id="2010_input" />
-                                <br /><label>Past 5th year</label><input name="2009" type="text" class="app_input" id="2009_input" />
+                                <label id="holiday_label" class="app_label">Number of holidays not claimed :</label>
+                                <br /><label id="year">Past 1st year </label>
+                                <input name="y2013" type="text" class="app_input" id="2013_input" <?php echo("value='".@$y2013."'"); ?>/>
+                                <br /><label id="year">Past 2nd year</label>
+                                <input name="y2012" type="text" class="app_input" id="2012_input" <?php echo("value='".@$y2012."'"); ?>/>
+                                <br /><label id="year">Past 3rd year </label>
+                                <input name="y2011" type="text" class="app_input" id="2011_input" <?php echo("value='".@$y2011."'"); ?>/>
+                                <br /><label id="year">Past 4th year </label>
+                                <input name="y2010" type="text" class="app_input" id="2010_input" <?php echo("value='".@$y2010."'"); ?>/>
+                                <br /><label id="year">Past 5th year </label>
+                                <input name="y2009" type="text" class="app_input" id="2009_input" <?php echo("value='".@$y2009."'"); ?>/>
                             </td>
-                            <td align="left"><input name="marks34" type="text" class="app_input" id="marks34_input" /></td>
+                            <td align="left"><input name="marks34" type="text" class="app_input" id="marks34_input" <?php echo("value='".@$marks34."' disabled"); ?>/></td>
                             <td align="left"><label id="marks34_label" class="app_label"> Out of 10</label></td>
                         </tr>
 
@@ -125,19 +177,28 @@ require_once('authorize.php');
                         <tr>
                             <td align="left">
 
-                                <label id="schname_label" class="app_label">Years of service in applied school if working in applied school</label><br /><input name="schname" type="text" class="app_input" id="schname_input" />
+                                <label id="schservice_label" class="app_label">Years of service in applied school if working in applied school</label><br />
+                                <input name="schservice" type="text" class="app_input" id="schservice_input" <?php echo("value='".@$schservice."'"); ?>/>
                             </td>
-                            <td align="left"><input name="marks35" type="text" class="app_input" id="marks35_input" /></td>
+                            <td align="left"><input name="marks35" type="text" class="app_input" id="marks35_input" <?php echo("value='".@$marks35."' disabled"); ?>/></td>
                             <td align="left"><label id="marks35_label" class="app_label"> Out of 10</label></td>
                         </tr>
 
+                        <!-- Common End of The Form-->
+                        <tr>
+                            <td align="right">
+                                <label id=" Total_label">Total</label><br />
+                            </td>
+                            <td align="left"><input name="markst" type="text" class="app_input" id="markst_input" <?php echo("value='".@$markst."' disabled"); ?> /></td>
+                            <td align="left"><label id="markst" class="app_label"> Out of 100</label></td>
+                        </tr>
                         <tr><td>
                                 <div class="button" align="center">
                                     <input id="submit" name="submit" type="submit" value="Submit" class="submit_button">
                                 </div></td>
                             <td>
                                 <div class="button" align="center">
-                                    <input id="submit" name="calc" type="submit" value="Calculate" class="submit_button">
+                                    <input id="submit" name="submit" type="submit" value="Calculate" class="submit_button">
                                 </div></td><td></td>
                         </tr>
                     </table>

@@ -2,6 +2,27 @@
     <!--Check whether the user is logged in.-->
 <?php
 require_once('authorize.php');
+$app=intval(@$_SESSION['SESS_Appication']);
+$cat=intval(@$_SESSION['SESS_Category']);
+
+require('Validate.php');
+//Connect to the database
+require_once('connection.php');
+
+// For the Application part
+$School_Name=@$_SESSION['SESS_School_Name'];
+$Category_Name=@$_SESSION['SESS_Category_Name'];
+$Full_Name=@$_SESSION['SESS_Full_Name'];
+$Medium=@$_SESSION['SESS_Medium'];
+$BD=@$_SESSION['SESS_BD'];
+$Gender=@$_SESSION['SESS_Gender'];
+$Religion=@$_SESSION['SESS_Religion'];
+$Applicant=@$_SESSION['SESS_Applicant_Name'];
+$Address=@$_SESSION['SESS_Address'];
+$NIC=@$_SESSION['SESS_NIC'];
+$Telephone=@$_SESSION['SESS_Telephone'];
+$Distance=@$_SESSION['SESS_Distance'];
+
 ?>
 
 <html>
@@ -70,6 +91,30 @@ require_once('authorize.php');
                 <!-- Foreign Travel form-->
 
                 <form id="stage1" action="<?php $_PHP_SELF ?>" method="post">
+
+                    <!-- Application Header -->
+                    <table class="resident" id="app_table">
+                        <tr><th align="left" style="font-size: 18px">School :<?php echo @$School_Name; ?></th>
+                            <th colspan="2" align="center" style="font-size: 18px">Application Category:  <?php echo @$Category_Name; ?></th>
+                        </tr>
+                        <tr><td align="left" style="font-size: 14px">
+                                <label class="app_label">Student Name : <?php echo @$Full_Name; ?></label><br/>
+                                <label class="app_label"><?php echo @$Medium; ?></label><br/>
+                                <label class="app_label"><?php echo @$BD; ?></label><br/>
+                                <label class="app_label"><?php echo @$Gender; ?></label><br/>
+                                <label class="app_label"><?php echo @$Religion; ?></label><br/>
+                            </td>
+                            <td colspan="2" align="center" style="font-size: 14px">
+                                <label class="app_label"><?php echo @$Applicant; ?></label><br/>
+                                <label class="app_label"><?php echo @$Address; ?></label><br/>
+                                <label class="app_label"><?php echo @$NIC; ?></label><br/>
+                                <label class="app_label"><?php echo @$Telephone; ?></label><br/>
+                                <label class="app_label"><?php echo @$Distance; ?></label><br/>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- Application Header End -->
+                    <!-- Custom decision support by Application category -->
                     <table class="resident" id="resident_table">																       <tr>
                             <th width="70%" ></th>
                             <th width="15%" align="center">Marks</th>
@@ -77,59 +122,69 @@ require_once('authorize.php');
                         </tr>
                         <tr>
                             <td align="left">
-                                <label id="ftime_label" class="app_label">Arrived date after foreign travel</label> <br /><input name="ftime" type="text" class="app_input" id="ftime_input" /><br />
-                                <label id="timef_label" class="app_label">Time period of foreign travel</label><br /><label>From (YYYY-MM-DD)</label><br /><input name="timef1" type="text" class="app_input" id="timef1_input" />
-                                <br /><label>To (YYYY-MM-DD)</label><br /><input name="timef2" type="text" class="app_input" id="timef2_input" />
+                                <label id="timef_label" class="app_label">Time period of foreign travel:</label><br /><br/>
+                                <label>From (YYYY-MM-DD)</label><br />
+                                <input name="timef1" type="text" class="app_input" id="timef1_input" <?php echo("value='".@$timef1."'"); ?> />
+                                <br /><label>To (YYYY-MM-DD)</label><br />
+                                <input name="timef2" type="text" class="app_input" id="timef2_input" <?php echo("value='".@$timef2."'"); ?>/>
 
                             </td>
-                            <td align="left"><input name="marks41" type="text" class="app_input" id="marks41_input" /></td>
+                            <td align="left"><input name="marks41" type="text" class="app_input" id="marks41_input" <?php echo("value='".@$marks41."' disabled"); ?>/></td>
 
                             <td align="left"><label id="marks41_lable" class="app_label"> Out of 25</label></td>
                         </tr>
                         <tr>
                             <td align="left">
 
-                                <label id="freson_label" class="app_label">Reson for foreign travel</label>
+                                <label id="freson_label" class="app_label">Reson for foreign travel:</label>
                                 <p>
                                     <label>
-                                        <input type="radio" name="freson" value="Title deed" id="freson" />
+                                        <input type="radio" name="freson" value="Diplomatic Travels" id="freson" <?php if (@$freson=="Diplomatic Travels") echo "checked";?>/>
                                         Diplomatic Travels</label>
                                     <br />
                                     <label>
-                                        <input type="radio" name="freson" value="Registered lease deed" id="freson" />
+                                        <input type="radio" name="freson" value="For Government Service" id="freson" <?php if (@$freson=="For Government Service") echo "checked";?>/>
                                         For Government Service</label>
                                     <br />
                                     <label>
-                                        <input type="radio" name="freson" value="Official residant" id="freson" />
+                                        <input type="radio" name="freson" value="For Scholarship" id="freson" <?php if (@$freson=="For Scholarship") echo "checked";?>/>
                                         For Scholarship</label>
                                     <br />
                                     <label>
-                                        <input type="radio" name="freson" value="othere" id="freson" />
+                                        <input type="radio" name="freson" value="Private Reason" id="freson" <?php if (@$freson=="Private Reason") echo "checked";?>/>
                                         Private Reason</label>
                                     <br />
                                 </p><br />
                             </td>
-                            <td align="left"><input name="marks42" type="text" class="app_input" id="marks42_input" /></td>
+                            <td align="left"><input name="marks42" type="text" class="app_input" id="marks42_input" <?php echo("value='".@$marks42."' disabled"); ?>/></td>
                             <td align="left"><label id="marks22_label" class="app_label"> Out of 40</label></td>
                         </tr>
 
                         <tr>
                             <td align="left">
-                                <label id="nearsch_label" class="app_label">Number of schools near than applied school</label><br /><input name="nearsch" type="text" class="app_input" id="nearsch_input" /> <br />
-
+                                <label id="other-sch_label" class="app_label">Number of schools near than the Applied School</label><br />
+                                <input name="other_sch" type="text" class="app_input" id="other-sch_input" <?php echo("value='".@$other_sch."'"); ?>/>
                             </td>
-                            <td align="left"><input name="marks23" type="text" class="app_input" id="marks23_input" /></td>
-                            <td align="left"><label id="marks23" class="app_label"> Out of 35</label></td>
+                            <td align="left"><input name="marks43" type="text" class="app_input" id="marks23_input" <?php echo("value='".@$marks43."' disabled"); ?>/></td>
+                            <td align="left"><label id="marks43" class="app_label"> Out of 35</label></td>
 
                         </tr>
 
+                        <!-- Common End of The Form-->
+                        <tr>
+                            <td align="right">
+                                <label id=" Total_label">Total</label><br />
+                            </td>
+                            <td align="left"><input name="markst" type="text" class="app_input" id="markst_input" <?php echo("value='".@$markst."' disabled"); ?> /></td>
+                            <td align="left"><label id="markst" class="app_label"> Out of 100</label></td>
+                        </tr>
                         <tr><td>
                                 <div class="button" align="center">
                                     <input id="submit" name="submit" type="submit" value="Submit" class="submit_button">
                                 </div></td>
                             <td>
                                 <div class="button" align="center">
-                                    <input id="submit" name="calc" type="submit" value="Calculate" class="submit_button">
+                                    <input id="submit" name="submit" type="submit" value="Calculate" class="submit_button">
                                 </div></td><td></td>
                         </tr>
                     </table>
