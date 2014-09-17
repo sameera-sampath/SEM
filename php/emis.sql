@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2014 at 04:57 PM
+-- Generation Time: Sep 17, 2014 at 03:04 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -59,28 +59,18 @@ CREATE TABLE IF NOT EXISTS `application` (
   KEY `School_ID` (`School_ID`),
   KEY `District_ID` (`District_ID`),
   KEY `Division_ID` (`Division_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- RELATIONS FOR TABLE `application`:
---   `Category_ID`
---       `category` -> `Category_ID`
---   `School_ID`
---       `school` -> `School_ID`
---   `District_ID`
---       `district` -> `District_ID`
---   `Division_ID`
---       `division` -> `Division_ID`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `application`
 --
 
 INSERT INTO `application` (`Application_ID`, `Full_Name`, `Initials`, `Last_Name`, `Category_ID`, `School_ID`, `Gender`, `Religion`, `Telephone`, `Education_Medium`, `Birth_Day`, `Applicant_Type`, `Name_Applicant`, `Applicant_Initials`, `Applicant_LastName`, `NIC`, `Nationalty`, `Applicant_Religion`, `Address`, `District_ID`, `Division_ID`, `GND`, `GND_NO`, `Distance_To_School_KM`, `Marks`) VALUES
-(1, 'Sf Eg Hkl', 'SE', 'Hkl', 1, 2, 'Male', 'Buddhism', '0714589486', 'Sinhala', '2010-02-09', 'Father', 'Ety Ghn Ubfg', 'EG', 'Ubfg', '852459283V', 'SriLankan', 'Buddhism', '34/1, Kirindimulla, Minuvangoda.', 'D02', 10, 'Kirindimulla', '345/2/A', 10, NULL),
+(1, 'Sf Eg Hkl', 'SE', 'Hkl', 1, 2, 'Male', 'Buddhism', '0714589486', 'Sinhala', '2010-02-09', 'Father', 'Ety Ghn Ubfg', 'EG', 'Ubfg', '852459283V', 'SriLankan', 'Buddhism', '34/1, Kirindimulla, Minuvangoda.', 'D02', 10, 'Kirindimulla', '345/2/A', 10, 85),
 (2, 'Withanage Kumara', 'W', 'Kumara', 1, 2, 'Male', 'Buddhism', '0112345947', 'Sinhala', '2009-10-25', 'Father', 'Withanage Sudusingha', 'W', 'Sudusingha', '800960352V', 'SriLankan', 'Buddhism', '25/2/A, Hunumulla,Wattala', 'D02', 15, 'Hunumulla', '324/1', 10, NULL),
-(3, 'Withanage Kumara', 'W', 'Kumara', 1, 2, 'Male', 'Buddhism', '0112345947', 'Sinhala', '2009-10-25', 'Father', 'Withanage Sudusingha', 'W', 'Sudusingha', '800960352V', 'SriLankan', 'Buddhism', '25/2/A, Hunumulla,Wattala', 'D02', 15, 'Hunumulla', '324/1', 10, NULL);
+(3, 'Withanage Kumara', 'W', 'Kumara', 1, 2, 'Male', 'Buddhism', NULL, 'Sinhala', '2009-10-25', 'Father', 'Withanage Sudusingha', 'W', 'Sudusingha', '800960352V', 'SriLankan', 'Buddhism', '25/2/A, Hunumulla,Wattala', 'D02', 15, 'Hunumulla', '324/1', 10, NULL),
+(4, 'Rathnayaka Mudiyanselage Janaki Bandara Rathnayaka', 'RMJB', 'Rathnayaka', 2, 50, 'Female', 'Buddhism', '0112674952', 'Sinhala', '2009-04-28', 'Mother', 'Gurusingha Arachchilage Padmakanthi Senarath ', 'GAPS', 'Gurusingha', '798029825V', 'SriLankan', 'Buddhism', '62/B, Pugoda Road, Kelaniya.', 'D02', 18, 'Kelaniya North', '529/A', 15, NULL),
+(5, 'Withanage Kumara', 'W', 'Kumara', 1, 2, 'Male', 'Buddhism', '0112345947', 'Sinhala', '2009-10-25', 'Father', 'Withanage Sudusingha', 'W', 'Sudusingha', '800960352V', 'SriLankan', 'Buddhism', '25/2/A, Hunumulla,Wattala', 'D02', 15, 'Hunumulla', '324/1', 10, NULL);
 
 -- --------------------------------------------------------
 
@@ -101,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 INSERT INTO `category` (`Category_ID`, `Category_Name`) VALUES
 (1, 'Residential'),
 (2, 'Old Student'),
-(3, 'Sibilings'),
+(3, 'Siblings'),
 (4, 'Education Officials'),
 (5, 'Transfered Govenment Employee'),
 (6, 'Arrive From Foreign Country');
@@ -142,12 +132,6 @@ CREATE TABLE IF NOT EXISTS `district` (
   PRIMARY KEY (`District_ID`),
   KEY `Province_ID` (`Province_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- RELATIONS FOR TABLE `district`:
---   `Province_ID`
---       `province` -> `Province_ID`
---
 
 --
 -- Dumping data for table `district`
@@ -521,6 +505,84 @@ CREATE TABLE IF NOT EXISTS `divisional_officer` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `educationwork_child_marks`
+--
+
+CREATE TABLE IF NOT EXISTS `educationwork_child_marks` (
+  `Application_ID` int(11) NOT NULL,
+  `Category_ID` int(11) NOT NULL,
+  `Service` int(11) NOT NULL DEFAULT '0',
+  `Distance` int(11) NOT NULL DEFAULT '0',
+  `RemotePresent` int(11) NOT NULL DEFAULT '0',
+  `RemoteService` int(11) NOT NULL DEFAULT '0',
+  `LeaveY1` int(11) NOT NULL DEFAULT '0',
+  `LeaveY2` int(11) NOT NULL DEFAULT '0',
+  `LeaveY3` int(11) NOT NULL DEFAULT '0',
+  `LeaveY4` int(11) NOT NULL DEFAULT '0',
+  `LeaveY5` int(11) NOT NULL DEFAULT '0',
+  `ServiceSameSchool` int(11) NOT NULL DEFAULT '0',
+  `Marks_Service` double NOT NULL DEFAULT '0',
+  `Marks_Distance` double NOT NULL DEFAULT '0',
+  `Marks_Remote` double NOT NULL DEFAULT '0',
+  `Marks_Leave` double NOT NULL DEFAULT '0',
+  `Marks_SameSchool` double NOT NULL DEFAULT '0',
+  `Marks_Total` double NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Application_ID`,`Category_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `foreigntravel_marks`
+--
+
+CREATE TABLE IF NOT EXISTS `foreigntravel_marks` (
+  `Application_ID` int(11) NOT NULL,
+  `Category_ID` int(11) NOT NULL,
+  `JurneyFrom` date DEFAULT NULL,
+  `JurneyTo` date DEFAULT NULL,
+  `Reason` varchar(45) NOT NULL DEFAULT 'Private Reason',
+  `School_Count` int(11) NOT NULL DEFAULT '0',
+  `Electoral_only_One_Years` int(11) NOT NULL DEFAULT '0',
+  `Proofs_Count` int(11) NOT NULL DEFAULT '0',
+  `Marks_Duration` double NOT NULL DEFAULT '0',
+  `Marks_Reason` double NOT NULL DEFAULT '0',
+  `Marks_School` double NOT NULL DEFAULT '0',
+  `Marks_Total` double NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Application_ID`,`Category_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `governmentwork_child_marks`
+--
+
+CREATE TABLE IF NOT EXISTS `governmentwork_child_marks` (
+  `Application_ID` int(11) NOT NULL,
+  `Category_ID` int(11) NOT NULL,
+  `Service` int(11) NOT NULL DEFAULT '0',
+  `Distance` int(11) NOT NULL DEFAULT '0',
+  `RemotePresent` int(11) NOT NULL DEFAULT '0',
+  `RemoteService` int(11) NOT NULL DEFAULT '0',
+  `LeaveY1` int(11) NOT NULL DEFAULT '0',
+  `LeaveY2` int(11) NOT NULL DEFAULT '0',
+  `LeaveY3` int(11) NOT NULL DEFAULT '0',
+  `LeaveY4` int(11) NOT NULL DEFAULT '0',
+  `LeaveY5` int(11) NOT NULL DEFAULT '0',
+  `ServiceSameSchool` int(11) NOT NULL DEFAULT '0',
+  `Marks_Service` double NOT NULL DEFAULT '0',
+  `Marks_Distance` double NOT NULL DEFAULT '0',
+  `Marks_Remote` double NOT NULL DEFAULT '0',
+  `Marks_Leave` double NOT NULL DEFAULT '0',
+  `Marks_SameSchool` double NOT NULL DEFAULT '0',
+  `Marks_Total` double NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Application_ID`,`Category_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `grade`
 --
 
@@ -558,6 +620,36 @@ CREATE TABLE IF NOT EXISTS `officer` (
 
 INSERT INTO `officer` (`USER_ID`, `Designation`, `Level`, `Officer_Grade`) VALUES
 (3, 'Director', 'Provincial', '2');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oldstudent_marks`
+--
+
+CREATE TABLE IF NOT EXISTS `oldstudent_marks` (
+  `Application_ID` int(11) NOT NULL,
+  `Category_ID` int(11) NOT NULL,
+  `NumberOf_grades` int(11) NOT NULL DEFAULT '0',
+  `Educational` varchar(100) NOT NULL DEFAULT 'Scholership',
+  `ExtraCurricular` varchar(100) DEFAULT NULL,
+  `Educational_After` varchar(100) DEFAULT NULL,
+  `Donation` varchar(100) DEFAULT NULL,
+  `Marks_Grades` double NOT NULL DEFAULT '0',
+  `Marks_Edu` double NOT NULL DEFAULT '0',
+  `Marks_Extra` double NOT NULL DEFAULT '0',
+  `Marks_After` double NOT NULL DEFAULT '0',
+  `Marks_Donation` double NOT NULL DEFAULT '0',
+  `Marks_Total` double NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Application_ID`,`Category_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `oldstudent_marks`
+--
+
+INSERT INTO `oldstudent_marks` (`Application_ID`, `Category_ID`, `NumberOf_grades`, `Educational`, `ExtraCurricular`, `Educational_After`, `Donation`, `Marks_Grades`, `Marks_Edu`, `Marks_Extra`, `Marks_After`, `Marks_Donation`, `Marks_Total`) VALUES
+(4, 2, 13, 'O/L, A/L', 'Prefect', 'Bsc(IT)', 'For ground', 26, 25, 15, 15, 4, 85);
 
 -- --------------------------------------------------------
 
@@ -625,6 +717,37 @@ CREATE TABLE IF NOT EXISTS `provincial_officer` (
 
 INSERT INTO `provincial_officer` (`USER_ID`, `Province_ID`) VALUES
 (3, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `residant_marks`
+--
+
+CREATE TABLE IF NOT EXISTS `residant_marks` (
+  `Application_ID` int(11) NOT NULL,
+  `Category_ID` int(11) NOT NULL,
+  `Electoral_Years` int(11) NOT NULL DEFAULT '0',
+  `Electoral_only_One_Years` int(11) NOT NULL DEFAULT '0',
+  `Ownership` varchar(45) NOT NULL DEFAULT 'Other',
+  `Ownership_Years` int(11) NOT NULL DEFAULT '0',
+  `Proofs_Count` int(11) NOT NULL DEFAULT '0',
+  `School_Count` int(11) NOT NULL DEFAULT '0',
+  `Marks_Electoral` double NOT NULL DEFAULT '0',
+  `Marks_Ownership` double NOT NULL DEFAULT '0',
+  `Marks_Proofs` double NOT NULL DEFAULT '0',
+  `Marks_School` double NOT NULL DEFAULT '0',
+  `Marks_Total` double NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Application_ID`,`Category_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `residant_marks`
+--
+
+INSERT INTO `residant_marks` (`Application_ID`, `Category_ID`, `Electoral_Years`, `Electoral_only_One_Years`, `Ownership`, `Ownership_Years`, `Proofs_Count`, `School_Count`, `Marks_Electoral`, `Marks_Ownership`, `Marks_Proofs`, `Marks_School`, `Marks_Total`) VALUES
+(1, 1, 5, 0, 'Title deed for Applicant', 5, 5, 3, 35, 10, 5, 35, 85),
+(2, 1, 0, 0, 'Other', 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -2032,6 +2155,29 @@ INSERT INTO `school` (`School_ID`, `School_Name`, `School_Address`, `School_Type
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `siblings_marks`
+--
+
+CREATE TABLE IF NOT EXISTS `siblings_marks` (
+  `Application_ID` int(11) NOT NULL,
+  `Category_ID` int(11) NOT NULL,
+  `Electoral_Years` int(11) NOT NULL DEFAULT '0',
+  `Electoral_only_One_Years` int(11) NOT NULL DEFAULT '0',
+  `Ownership` varchar(45) NOT NULL DEFAULT 'Other',
+  `Ownership_Years` int(11) NOT NULL DEFAULT '0',
+  `Proofs_Count` int(11) NOT NULL DEFAULT '0',
+  `School_Count` int(11) NOT NULL DEFAULT '0',
+  `Marks_Electoral` double NOT NULL DEFAULT '0',
+  `Marks_Ownership` double NOT NULL DEFAULT '0',
+  `Marks_Proofs` double NOT NULL DEFAULT '0',
+  `Marks_School` double NOT NULL DEFAULT '0',
+  `Marks_Total` double NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Application_ID`,`Category_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `student`
 --
 
@@ -2166,12 +2312,6 @@ CREATE TABLE IF NOT EXISTS `zone` (
   PRIMARY KEY (`Zone_ID`),
   KEY `District_ID` (`District_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- RELATIONS FOR TABLE `zone`:
---   `District_ID`
---       `district` -> `District_ID`
---
 
 --
 -- Dumping data for table `zone`
