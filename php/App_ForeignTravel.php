@@ -5,6 +5,7 @@ require_once('authorize.php');
 $app=intval(@$_SESSION['SESS_Appication']);
 $cat=intval(@$_SESSION['SESS_Category']);
 
+if($app>0 AND $cat==6){
 require('Validate.php');
 //Connect to the database
 require_once('connection.php');
@@ -22,7 +23,79 @@ $Address=@$_SESSION['SESS_Address'];
 $NIC=@$_SESSION['SESS_NIC'];
 $Telephone=@$_SESSION['SESS_Telephone'];
 $Distance=@$_SESSION['SESS_Distance'];
-
+if(isset($_POST['submit']))
+{
+    if (DateTime::createFromFormat('Y-m-j', getVal(@$_POST['timef1'])) !== FALSE) {
+        $timef1=getVal(@$_POST['timef1']);
+    }
+    else
+    {
+        $timef1=null;
+    }
+    if (DateTime::createFromFormat('Y-m-j', getVal(@$_POST['timef2'])) !== FALSE) {
+        $timef2=getVal(@$_POST['timef2']);
+    }
+    else
+    {
+        $timef2=null;
+    }
+    $freson = getVal(@$_POST['freson']);
+    $other_sch = intval(getVal(@$_POST['other_sch']));
+    $Elec_reg2 = intval(getVal(@$_POST['Elec_reg2']));
+    $proof = intval(getVal(@$_POST['proof']));
+    $marks1=electorial_marks(0,@$Elec_reg2);
+    $marks3 = extra_doc(@$proof);
+    $marks41= StayedFor($timef1,$timef2);
+    $marks42 = reason(@$freson);
+    $marks43 = nearforeign($marks1+$marks3,$other_sch);
+    $markst=$marks41+$marks42+$marks43;
+    if($_POST['submit']=="Submit")
+    {
+        $sql="INSERT INTO ForeignTravel_Marks ".
+            "(Application_ID, Category_ID, JurneyFrom, JurneyTo, Reason, School_Count, Electoral_only_One_Years, Proofs_Count, Marks_Duration, Marks_Reason, Marks_School, Marks_Total)".
+            "VALUES ('$app', '$cat', '$timef1', '$timef2', '$freson', '$other_sch', '$Elec_reg2', '$proof', '$marks41', '$marks42', '$marks43', '$markst') ".
+            "ON DUPLICATE KEY UPDATE JurneyFrom = VALUES (JurneyFrom),JurneyTo = VALUES (JurneyTo),Reason = VALUES (Reason),School_Count = VALUES (School_Count),".
+            "Electoral_only_One_Years = VALUES (Electoral_only_One_Years),Proofs_Count = VALUES (Proofs_Count),Marks_Duration = VALUES (Marks_Duration),Marks_Reason = VALUES (Marks_Reason),Marks_School = VALUES (Marks_School),Marks_Total = VALUES (Marks_Total);";
+        $retval = mysql_query( $sql);
+        if(! $retval )
+        {
+            die('Could not enter data: ' . mysql_error());
+        }
+        else{
+            $sql2="UPDATE Application SET Marks = $markst WHERE Application_ID =$app;";
+            $set = mysql_query( $sql2);
+            if(! $set )
+            {
+                die('Could not enter data: ' . mysql_error());
+            }
+            header("location: UnsetSession_SelectionPanel.php");
+        }
+    }
+    elseif($_POST['submit']=="Calculate")
+    {  }
+}
+else
+{
+    //Retriev data from DataBase
+    $sql="SELECT * FROM EducationWork_Child_Marks WHERE Application_ID='$app'";
+    $resultses = mysql_query ($sql);
+    while($resultSet = mysql_fetch_array($resultses))
+    {
+        if($resultSet['Application_ID']==$app)
+        {
+            $timef1=$resultSet['JurneyFrom'];
+            $timef2=@$resultSet['JurneyTo'];
+            $freson=@$resultSet['Reason'];
+            $other_sch=@$resultSet['School_Count'];
+            $Elec_reg2=@$resultSet['Electoral_only_One_Years'];
+            $proof=@$resultSet['Proofs_Count'];
+            $marks41=$resultSet['Marks_Duration'];
+            $marks42=$resultSet['Marks_Reason'];
+            $marks43=$resultSet['Marks_School'];
+            $markst=$resultSet['Marks_Total'];
+        }
+    }
+}
 ?>
 
 <html>
@@ -122,6 +195,19 @@ $Distance=@$_SESSION['SESS_Distance'];
                         </tr>
                         <tr>
                             <td align="left">
+                                <label id=" Elec-reg2_label">
+                                    Number of years if applicant And/Or spouse is included in electoral register</label>
+                                <input name="Elec_reg2" type="text" class="app_input" id="Elec-reg2_input" <?php echo("value='".@$Elec_reg2."'"); ?>/><br />
+
+                                <label id="proof_label" class="app_label">Number of extra documents to verify the residant place</label><br />
+                                <input name="proof" type="text" class="app_input" id="proof_input" <?php echo("value='".@$proof."'"); ?>/> <br />
+
+                            </td>
+                            <td colspan="2" align="left"><label id="marks3" class="app_label"> For verifying the resident place</label></td>
+
+                        </tr>
+                        <tr>
+                            <td align="left">
                                 <label id="timef_label" class="app_label">Time period of foreign travel:</label><br /><br/>
                                 <label>From (YYYY-MM-DD)</label><br />
                                 <input name="timef1" type="text" class="app_input" id="timef1_input" <?php echo("value='".@$timef1."'"); ?> />
@@ -136,7 +222,7 @@ $Distance=@$_SESSION['SESS_Distance'];
                         <tr>
                             <td align="left">
 
-                                <label id="freson_label" class="app_label">Reson for foreign travel:</label>
+                                <label id="freson_label" class="app_label">Reason for foreign travel:</label>
                                 <p>
                                     <label>
                                         <input type="radio" name="freson" value="Diplomatic Travels" id="freson" <?php if (@$freson=="Diplomatic Travels") echo "checked";?>/>
@@ -157,7 +243,7 @@ $Distance=@$_SESSION['SESS_Distance'];
                                 </p><br />
                             </td>
                             <td align="left"><input name="marks42" type="text" class="app_input" id="marks42_input" <?php echo("value='".@$marks42."' disabled"); ?>/></td>
-                            <td align="left"><label id="marks22_label" class="app_label"> Out of 40</label></td>
+                            <td align="left"><label id="marks42_label" class="app_label"> Out of 40</label></td>
                         </tr>
 
                         <tr>
@@ -201,3 +287,9 @@ $Distance=@$_SESSION['SESS_Distance'];
 
 </body>
 </html>
+
+<?php }
+else{
+    header("location: Panel.php?select_application=false");
+    exit();
+}?>

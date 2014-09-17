@@ -179,7 +179,7 @@ else{
 <!--content start-->
 <div id="content_outer">
     <div id="content_inner">
-            <div class="content_title">Application Selection Panel</div>
+            <div class="content_title">Application Selection Panel - Select Application</div>
             <div class="content_middle">
                 <?php
 
@@ -230,6 +230,15 @@ else{
                 }
                 else{$queryApp="";}
                 ///////////// End of query for Application list box////////////
+
+                //Print the message from previous operation
+                if(isset($_GET['insert']))
+                {
+                    if($_GET['insert']=="Success")
+                    {
+                        echo("Data Entered Successfully !");
+                    }
+                }
                 ?>
 
                 <form onload="disableselect()" id="stage1" name="f1" action="<?php $_PHP_SELF ?>" method="post">

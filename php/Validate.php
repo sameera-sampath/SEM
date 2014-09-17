@@ -16,6 +16,145 @@ function reduce($original,$val,$rate)
     $rate=floatval($rate);
     return $original-($val*$rate);
 }
+//Foreign
+function StayedFor($from,$to)
+{
+    $val1=date_create_from_format('Y-m-j', $from);
+    $val2=date_create_from_format('Y-m-j', $to);
+    if($val1==false or $val2==false)
+    {
+        return 0;
+    }
+    else
+    {
+        $duration=date_diff($val1, $val2,true);
+        $years=$duration->y;
+        switch($years)
+        {
+            case 0:
+                return 5;
+            case 1:
+                return 10;
+            case 2:
+                return 15;
+            default:
+                return 25;
+        }
+    }
+}
+function reason($type)
+{
+    $marks=0;
+    switch($type)
+    {
+        case "Diplomatic Travels":
+            $marks=40;
+            break;
+        case "For Government Service":
+            $marks=30;
+            break;
+        case "For Scholarship":
+            $marks=20;
+            break;
+        case "Private Reason":
+            $marks=10;
+            break;
+    }
+    return $marks;
+}
+function nearforeign($residence,$no)
+{
+    if($residence>0)
+    {
+        $marks= reduce(35,$no,5);
+        if($marks>0)
+        {
+            return $marks;
+        }
+    }
+    return 0;
+}
+/* Educational */
+function leave($y1,$y2,$y3,$y4,$y5)
+{
+    $num1=check_greater($y1,20,2);
+    $num2=check_greater($y2,20,2);
+    $num3=check_greater($y3,20,2);
+    $num4=check_greater($y4,20,2);
+    $num5=check_greater($y5,20,2);
+    return $num1+$num2+$num3+$num4+$num5;
+}
+function same_School_service($num)
+{
+    if($num<0)
+    {
+        return 0;
+    }
+    elseif($num<3){
+        return 5;
+    }
+    else
+    {
+        return 10;
+    }
+}
+function remote($num1,$num2)
+{
+    $e1=floatval($num1);
+    $e2=floatval($num2);
+    if($e1>5)
+    {
+        $e1=5;
+    }
+    if($e2>5)
+    {
+        $e2=5;
+    }
+    if(($e1+$e2)>5)
+    {
+        $e2=5-$e1;
+    }
+    return calculate_marks_two($e1,$e2,5,3);
+}
+
+function distance($num)
+{
+    if($num<0)
+    {
+        return 0;
+    }
+    elseif($num<25)
+    {
+        return 5;
+    }
+    elseif($num<50)
+    {
+        return 15;
+    }
+    elseif($num<100)
+    {
+        return 25;
+    }
+    else
+    {
+        return 35;
+    }
+}
+function service($num)
+{
+    if($num<20)
+    {
+        return 20;
+    }
+    else{
+        return $num;
+    }
+}
+/*
+* Educational End
+ *
+ */
+
 /* Old Student */
 function grades($num)
 {
@@ -149,7 +288,17 @@ function getVal($var)
         return null;
     }
 }
-
+function check_greater($val,$const,$true)
+{
+    if($val<$const)
+    {
+        return 0;
+    }
+    else
+    {
+        return $true;
+    }
+}
 function removeNull($str)
 {
     if(is_null($str))

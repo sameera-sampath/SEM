@@ -470,7 +470,7 @@ if(isset($_GET['Nationalty']))
                 </div>
             </form>
             <?php } if ($stage == '2') { ?>
-            <div class="content_title">New Allication - Information about Father/Mother/Gardian</div>
+            <div class="content_title">New Application - Information about Father/Mother/Gardian</div>
             <div class="content_middle">
             <form id="stage2" name="f2" action="<?php $handle->validate_st2() ?>" method="post">
                 <span class="error">* required field.</span>

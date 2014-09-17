@@ -51,6 +51,16 @@ require_once('authorize.php');
     <div id="content_inner">
             <div class="content_title">Student Enrolment</div>
             <div class="content_middle">
+                <?php
+                //Print the message from previous operation
+                if(isset($_GET['insert']))
+                {
+                    if($_GET['insert']=="Success")
+                    {
+                        echo("Data Entered Successfully !");
+                    }
+                }
+                ?>
                 <div class="content_block"><a href="UnsetSession.php" class="content_link">
                         <span class="content_link_text">New Application&nbsp;</span></a><!--<div class="alert1"></div>--></div>
                 <div class="content_block"><a href="Panel.php" class="content_link">

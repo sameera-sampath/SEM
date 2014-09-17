@@ -4,7 +4,7 @@
 require_once('authorize.php');
 $app=intval(@$_SESSION['SESS_Appication']);
 $cat=intval(@$_SESSION['SESS_Category']);
-
+if($app>0 AND $cat==5){
 require('Validate.php');
 //Connect to the database
 require_once('connection.php');
@@ -22,6 +22,77 @@ $Address=@$_SESSION['SESS_Address'];
 $NIC=@$_SESSION['SESS_NIC'];
 $Telephone=@$_SESSION['SESS_Telephone'];
 $Distance=@$_SESSION['SESS_Distance'];
+if(isset($_POST['submit']))
+{
+    $service = intval(getVal(@$_POST['service']));
+    $distance = intval(getVal(@$_POST['distance']));
+    $remoteCurrent = intval(getVal(@$_POST['remoteCurrent']));
+    $remote = intval(getVal(@$_POST['remote']));
+    $y2013 = intval(getVal(@$_POST['y2013']));
+    $y2012 = intval(getVal(@$_POST['y2012']));
+    $y2011 = intval(getVal(@$_POST['y2012']));
+    $y2010 = intval(getVal(@$_POST['y2010']));
+    $y2009 = intval(getVal(@$_POST['y2009']));
+    $schservice = intval(getVal(@$_POST['schservice']));
+    $marks31= service(@$service);
+    $marks32 = distance(@$distance);
+    $marks33 = remote($remoteCurrent,$remote);
+    $marks34 = leave($y2013,$y2012,$y2011,$y2010,$y2009);
+    $marks35 = same_School_service($schservice);
+    $markst=$marks31+$marks32+$marks33+$marks34+$marks35;
+    if($_POST['submit']=="Submit")
+    {
+        $sql="INSERT INTO GovernmentWork_Child_Marks ".
+            "(Application_ID, Category_ID, Service, Distance, RemotePresent, RemoteService, LeaveY1,LeaveY2,LeaveY3,LeaveY4,LeaveY5, ServiceSameSchool,Marks_Service, Marks_Distance, Marks_Remote, Marks_Leave, Marks_SameSchool, Marks_Total)".
+            "VALUES ('$app', '$cat', '$service', '$distance', '$remoteCurrent', '$remote', '$y2013', '$y2012', '$y2011', '$y2010', '$y2009','$schservice', '$marks31', '$marks32', '$marks33', '$marks34', '$marks35', '$markst') ".
+            "ON DUPLICATE KEY UPDATE Service = VALUES (Service),Distance = VALUES (Distance),RemotePresent = VALUES (RemotePresent),RemoteService = VALUES (RemoteService),LeaveY1 = VALUES (LeaveY1),LeaveY2 = VALUES (LeaveY2),LeaveY3 = VALUES (LeaveY3),LeaveY4 = VALUES (LeaveY4),LeaveY5 = VALUES (LeaveY5),ServiceSameSchool = VALUES (ServiceSameSchool),".
+            "Marks_Service = VALUES (Marks_Service),Marks_Distance = VALUES (Marks_Distance),Marks_Remote = VALUES (Marks_Remote),Marks_Leave = VALUES (Marks_Leave),Marks_SameSchool = VALUES (Marks_SameSchool),Marks_Total = VALUES (Marks_Total);";
+        $retval = mysql_query( $sql);
+        if(! $retval )
+        {
+            die('Could not enter data: ' . mysql_error());
+        }
+        else{
+            $sql2="UPDATE Application SET Marks = $markst WHERE Application_ID =$app;";
+            $set = mysql_query( $sql2);
+            if(! $set )
+            {
+                die('Could not enter data: ' . mysql_error());
+            }
+            header("location: UnsetSession_SelectionPanel.php");
+        }
+    }
+    elseif($_POST['submit']=="Calculate")
+    {  }
+}
+else
+{
+    //Retriev data from DataBase
+    $sql="SELECT * FROM GovernmentWork_Child_Marks WHERE Application_ID='$app'";
+    $resultses = mysql_query ($sql);
+    while($resultSet = mysql_fetch_array($resultses))
+    {
+        if($resultSet['Application_ID']==$app)
+        {
+            $service=$resultSet['Service'];
+            $distance=@$resultSet['Distance'];
+            $remoteCurrent=@$resultSet['RemotePresent'];
+            $remote=@$resultSet['RemoteService'];
+            $y2013=@$resultSet['LeaveY1'];
+            $y2012=@$resultSet['LeaveY2'];
+            $y2011=@$resultSet['LeaveY3'];
+            $y2010=@$resultSet['LeaveY4'];
+            $y2009=@$resultSet['LeaveY5'];
+            $schservice=@$resultSet['ServiceSameSchool'];
+            $marks31=$resultSet['Marks_Service'];
+            $marks32=$resultSet['Marks_Distance'];
+            $marks33=$resultSet['Marks_Remote'];
+            $marks34=$resultSet['Marks_Leave'];
+            $marks35=$resultSet['Marks_SameSchool'];
+            $markst=$resultSet['Marks_Total'];
+        }
+    }
+}
 ?>
 
 <html>
@@ -215,3 +286,8 @@ $Distance=@$_SESSION['SESS_Distance'];
 
 </body>
 </html>
+<?php }
+else{
+    header("location: Panel.php?select_application=false");
+    exit();
+}?>

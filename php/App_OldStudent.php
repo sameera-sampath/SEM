@@ -48,6 +48,12 @@ if(isset($_POST['submit']))
             die('Could not enter data: ' . mysql_error());
         }
         else{
+            $sql2="UPDATE Application SET Marks = $markst WHERE Application_ID =$app;";
+            $set = mysql_query( $sql2);
+            if(! $set )
+            {
+                die('Could not enter data: ' . mysql_error());
+            }
             header("location: UnsetSession_SelectionPanel.php");
         }
     }

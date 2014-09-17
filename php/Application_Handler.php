@@ -208,7 +208,7 @@ public $error_flag = false;
             $this->initialize_st2();
             $message=$this->insert();
 
-            header("location: Enrolment.php?newApp=".$message);
+            header("location: Enrolment.php?insert=".$message);
         }
     }
 
@@ -228,7 +228,7 @@ public $error_flag = false;
             return "Fail";
         }
         else{
-            return "Succes";
+            return "Success";
         }
     }
 
