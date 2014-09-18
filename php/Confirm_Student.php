@@ -1,9 +1,24 @@
 <!DOCTYPE html>
     <!--Check whether the user is logged in.-->
 <?php
-require_once('authorize.php');
+require_once('Authorize.php');
 //Connect to the database
-require_once('connection.php');
+require_once('Connection.php');
+if(isset($_POST['marks3']) > 0)
+{
+    if(is_int($_POST['marks3']))
+    {
+        $_SESSION['SESS_School'] = $_POST['marks3'];
+    }
+}
+if(isset($_POST['subcat3']))
+{
+    $_SESSION['SESS_School'] = $_POST['subcat3'];
+}
+if(isset($_POST['subcat3'])or isset($_POST['marks3']) > 0)
+{
+    header("location: Confirm_Student_form.php");
+}
 ?>
 
 <html>
@@ -18,7 +33,7 @@ require_once('connection.php');
             var val2=form.subcat.options[form.subcat.options.selectedIndex].value;
             var val4=form.subcat3.options[form.subcat3.options.selectedIndex].value;
 
-            self.location='Panel.php?cat=' + val + '&cat3=' + val2+ '&scl='+val4;
+            self.location='Confirm_Student.php?cat=' + val + '&cat3=' + val2+ '&scl='+val4;
         }
     </script>
     <style>
@@ -61,7 +76,7 @@ require_once('connection.php');
                        $lname = $_SESSION['SESS_LAST_NAME'];
                        echo "Welcome, " . $fname . " " . $lname . ", ";
                        ?>
-                       <span><a href="logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
+                       <span><a href="Logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
                 </div>
             </div>
       </div>
@@ -85,7 +100,7 @@ require_once('connection.php');
                 ///////////// End of query for District list box////////////
 
                 ///////// Getting the data from Mysql table for Category list box//////////
-                $queryC="SELECT DISTINCT Category_ID,Category_Name FROM Category order by Category_ID";
+                $queryC="SELECT DISTINCT Category_ID,Category_Name FROM category order by Category_ID";
                 ///////////// End of query for Category list box////////////
 
                 ///////// Getting the data from Mysql table for Division list box//////////
@@ -95,8 +110,8 @@ require_once('connection.php');
 
                 }
                 if(isset($cat) and strlen($cat) > 0){
-                    $quer="SELECT DISTINCT Division_ID,Division_Name FROM Division join Zone on Division.Zone_ID=Zone.Zone_ID where District_ID='".$cat."' order by Division_ID";
-                }else{$quer="SELECT DISTINCT Division_ID,Division_Name FROM Division";}
+                    $quer="SELECT DISTINCT Division_ID,Division_Name FROM division join zone on division.Zone_ID=zone.Zone_ID where District_ID='".$cat."' order by Division_ID";
+                }else{$quer="SELECT DISTINCT Division_ID,Division_Name FROM division";}
                 ///////////// End of query for Division list box////////////
 
                 ///////// Getting the data from Mysql table for School list box//////////
@@ -105,9 +120,9 @@ require_once('connection.php');
                     $cat3=$_GET['cat3']; // This line is added to take care if your global variable is off
                 }
                 if(isset($cat3) and strlen($cat3) > 0){
-                    $quer3="SELECT DISTINCT School_ID,School_Name FROM School where Division_ID =$cat3 order by School_ID";
+                    $quer3="SELECT DISTINCT School_ID,School_Name FROM school where Division_ID =$cat3 order by School_ID";
                 }
-                else{$quer3="SELECT DISTINCT School_ID,School_Name FROM School where Division_ID =null order by School_ID";}
+                else{$quer3="SELECT DISTINCT School_ID,School_Name FROM school where Division_ID =null order by School_ID";}
                 ///////////// End of query for School list box////////////
 
                 ///////// Getting the data from Mysql table for Application list box//////////

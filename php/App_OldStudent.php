@@ -1,13 +1,13 @@
 <!DOCTYPE html>
     <!--Check whether the user is logged in.-->
 <?php
-require_once('authorize.php');
+require_once('Authorize.php');
 $app=intval(@$_SESSION['SESS_Appication']);
 $cat=intval(@$_SESSION['SESS_Category']);
 if($app>0 AND $cat==2){
 require('Validate.php');
 //Connect to the database
-require_once('connection.php');
+require_once('Connection.php');
 
 // For the Application part
 $School_Name=@$_SESSION['SESS_School_Name'];
@@ -37,7 +37,7 @@ if(isset($_POST['submit']))
     $markst=$marks21+$marks22+$marks23+$marks24+$marks25;
     if($_POST['submit']=="Submit")
     {
-        $sql="INSERT INTO OldStudent_Marks ".
+        $sql="INSERT INTO oldstudent_marks ".
             "(Application_ID, Category_ID, NumberOf_grades, Educational, ExtraCurricular, Educational_After, Donation, Marks_Grades, Marks_Edu, Marks_Extra, Marks_After, Marks_Donation, Marks_Total)".
             "VALUES ('$app', '$cat', '$no_grade', '$achievementsin', '$extra', '$achievementsout', '$donation', '$marks21', '$marks22', '$marks23', '$marks24', '$marks25', '$markst') ".
             "ON DUPLICATE KEY UPDATE NumberOf_grades = VALUES (NumberOf_grades),Educational = VALUES (Educational),ExtraCurricular = VALUES (ExtraCurricular),Educational_After = VALUES (Educational_After),".
@@ -48,7 +48,7 @@ if(isset($_POST['submit']))
             die('Could not enter data: ' . mysql_error());
         }
         else{
-            $sql2="UPDATE Application SET Marks = $markst WHERE Application_ID =$app;";
+            $sql2="UPDATE application SET Marks = $markst WHERE Application_ID =$app;";
             $set = mysql_query( $sql2);
             if(! $set )
             {
@@ -63,7 +63,7 @@ if(isset($_POST['submit']))
 else
 {
     //Retriev data from DataBase
-    $sql="SELECT * FROM OldStudent_Marks WHERE Application_ID='$app'";
+    $sql="SELECT * FROM oldstudent_marks WHERE Application_ID='$app'";
     $resultses = mysql_query ($sql);
     while($resultSet = mysql_fetch_array($resultses))
     {
@@ -131,7 +131,7 @@ else
                        $lname = $_SESSION['SESS_LAST_NAME'];
                        echo "Welcome, " . $fname . " " . $lname . ", ";
                        ?>
-                       <span><a href="logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
+                       <span><a href="Logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
                 </div>
             </div>
       </div>

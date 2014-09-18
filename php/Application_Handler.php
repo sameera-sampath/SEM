@@ -215,7 +215,7 @@ public $error_flag = false;
     public function insert()
     {
         //Connect to the database
-        require_once('connection.php');
+        require_once('Connection.php');
         global $fullName,$schoolID,$categoryID,$Last_Name,$birthDate,$religion,$gender,$Name_initials,$medium;
         global $distance,$Nationalty,$NIC,$tel,$app_address,$app_fullName,$applicant,$districtID,$app_lastName,$divisionID,$app_religion,$GND,$app_initials,$GNDno;
         $sql="INSERT INTO Application ".

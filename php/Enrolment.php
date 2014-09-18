@@ -1,7 +1,7 @@
 <!DOCTYPE html>
     <!--Check whether the user is logged in.-->
 <?php
-require_once('authorize.php');
+require_once('Authorize.php');
 ?>
 
 <html>
@@ -34,7 +34,7 @@ require_once('authorize.php');
                        $lname = $_SESSION['SESS_LAST_NAME'];
                        echo "Welcome, " . $fname . " " . $lname . ", ";
                        ?>
-                       <span><a href="logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
+                       <span><a href="Logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
                 </div>
             </div>
       </div>

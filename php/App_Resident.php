@@ -1,14 +1,14 @@
 <!DOCTYPE html>
     <!--Check whether the user is logged in.-->
 <?php
-require_once('authorize.php');
+require_once('Authorize.php');
 $app=intval(@$_SESSION['SESS_Appication']);
 $cat=intval(@$_SESSION['SESS_Category']);
 if($app>0 AND $cat==1){
 
 require('Validate.php');
 //Connect to the database
-require_once('connection.php');
+require_once('Connection.php');
 
 if(isset($_POST['submit']))
 {
@@ -25,7 +25,7 @@ if(isset($_POST['submit']))
     $markst=$marks1+$marks2+$marks3+$marks4;
     if($_POST['submit']=="Submit")
     {
-        $sql="INSERT INTO Residant_Marks ".
+        $sql="INSERT INTO residant_marks ".
             "(Application_ID, Category_ID, Electoral_Years, Electoral_only_One_Years, Ownership, Ownership_Years, Proofs_Count, School_Count, Marks_Electoral, Marks_Ownership, Marks_Proofs, Marks_School, Marks_Total)".
             "VALUES ('$app', '$cat', '$Elec_reg', '$Elec_reg2', '$ownership', '$ownerDuration', '$proof', '$other_sch', '$marks1', '$marks2', '$marks3', '$marks4', '$markst') ".
             "ON DUPLICATE KEY UPDATE Electoral_Years = VALUES (Electoral_Years),Electoral_only_One_Years = VALUES (Electoral_only_One_Years),Ownership = VALUES (Ownership),Ownership_Years = VALUES (Ownership_Years),".
@@ -36,7 +36,7 @@ if(isset($_POST['submit']))
             die('Could not enter data: ' . mysql_error());
         }
         else{
-            $sql2="UPDATE Application SET Marks = $markst WHERE Application_ID =$app;";
+            $sql2="UPDATE application SET Marks = $markst WHERE Application_ID =$app;";
             $set = mysql_query( $sql2);
             if(! $set )
             {
@@ -52,7 +52,7 @@ else
 {
     //Retriev data from DataBase
 
-    $sql="SELECT * FROM Residant_Marks WHERE Application_ID='$app'";
+    $sql="SELECT * FROM residant_marks WHERE Application_ID='$app'";
     $resultses = mysql_query ($sql);
     while($resultSet = mysql_fetch_array($resultses))
     {
@@ -132,7 +132,7 @@ $Distance=@$_SESSION['SESS_Distance'];
                        $lname = $_SESSION['SESS_LAST_NAME'];
                        echo "Welcome, " . $fname . " " . $lname . ", ";
                        ?>
-                       <span><a href="logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
+                       <span><a href="Logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
                 </div>
             </div>
       </div>

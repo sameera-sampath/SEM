@@ -1,14 +1,14 @@
 <!DOCTYPE html>
     <!--Check whether the user is logged in.-->
 <?php
-require_once('authorize.php');
+require_once('Authorize.php');
 $app=intval(@$_SESSION['SESS_Appication']);
 $cat=intval(@$_SESSION['SESS_Category']);
 
 if($app>0 AND $cat==6){
 require('Validate.php');
 //Connect to the database
-require_once('connection.php');
+require_once('Connection.php');
 
 // For the Application part
 $School_Name=@$_SESSION['SESS_School_Name'];
@@ -51,7 +51,7 @@ if(isset($_POST['submit']))
     $markst=$marks41+$marks42+$marks43;
     if($_POST['submit']=="Submit")
     {
-        $sql="INSERT INTO ForeignTravel_Marks ".
+        $sql="INSERT INTO foreigntravel_marks ".
             "(Application_ID, Category_ID, JurneyFrom, JurneyTo, Reason, School_Count, Electoral_only_One_Years, Proofs_Count, Marks_Duration, Marks_Reason, Marks_School, Marks_Total)".
             "VALUES ('$app', '$cat', '$timef1', '$timef2', '$freson', '$other_sch', '$Elec_reg2', '$proof', '$marks41', '$marks42', '$marks43', '$markst') ".
             "ON DUPLICATE KEY UPDATE JurneyFrom = VALUES (JurneyFrom),JurneyTo = VALUES (JurneyTo),Reason = VALUES (Reason),School_Count = VALUES (School_Count),".
@@ -62,7 +62,7 @@ if(isset($_POST['submit']))
             die('Could not enter data: ' . mysql_error());
         }
         else{
-            $sql2="UPDATE Application SET Marks = $markst WHERE Application_ID =$app;";
+            $sql2="UPDATE application SET Marks = $markst WHERE Application_ID =$app;";
             $set = mysql_query( $sql2);
             if(! $set )
             {
@@ -77,7 +77,7 @@ if(isset($_POST['submit']))
 else
 {
     //Retriev data from DataBase
-    $sql="SELECT * FROM EducationWork_Child_Marks WHERE Application_ID='$app'";
+    $sql="SELECT * FROM foreigntravel_marks WHERE Application_ID='$app'";
     $resultses = mysql_query ($sql);
     while($resultSet = mysql_fetch_array($resultses))
     {
@@ -143,7 +143,7 @@ else
                        $lname = $_SESSION['SESS_LAST_NAME'];
                        echo "Welcome, " . $fname . " " . $lname . ", ";
                        ?>
-                       <span><a href="logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
+                       <span><a href="Logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
                 </div>
             </div>
       </div>

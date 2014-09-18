@@ -1,10 +1,10 @@
 <!DOCTYPE html>
     <!--Check whether the user is logged in.-->
 <?php
-require_once('authorize.php');
+require_once('Authorize.php');
 
 //Connect to the database
-require_once('connection.php');
+require_once('Connection.php');
 if(isset($_POST['application'])and strlen($_POST['application']) > 0)
 {
     $selection;
@@ -15,7 +15,7 @@ if(isset($_POST['application'])and strlen($_POST['application']) > 0)
     {
         $selection= $_POST['category'];
 
-        $sql="SELECT Application_ID,School_Name,Birth_Day,Gender,Religion,Education_Medium,Address,Distance_To_School_KM,Telephone,Full_Name,Applicant_Initials,Applicant_LastName,Applicant_Type,NIC FROM Application, School WHERE Application_ID=$app AND Application.School_ID = School.School_ID";
+        $sql="SELECT Application_ID,School_Name,Birth_Day,Gender,Religion,Education_Medium,Address,Distance_To_School_KM,Telephone,Full_Name,Applicant_Initials,Applicant_LastName,Applicant_Type,NIC FROM application, school WHERE Application_ID=$app AND application.School_ID = school.School_ID";
         $resultses = mysql_query ($sql);
         while($resultSet = mysql_fetch_array($resultses))
         {
@@ -36,7 +36,7 @@ if(isset($_POST['application'])and strlen($_POST['application']) > 0)
         }
     }
     else{
-        $sql="SELECT Application_ID,Category_ID,School_Name,Birth_Day,Gender,Religion,Education_Medium,Address,Distance_To_School_KM,Telephone,Full_Name,Applicant_Initials,Applicant_LastName,Applicant_Type,NIC FROM Application, School WHERE Application_ID=$app AND Application.School_ID = School.School_ID";
+        $sql="SELECT Application_ID,Category_ID,School_Name,Birth_Day,Gender,Religion,Education_Medium,Address,Distance_To_School_KM,Telephone,Full_Name,Applicant_Initials,Applicant_LastName,Applicant_Type,NIC FROM application, school WHERE Application_ID=$app AND application.School_ID = school.School_ID";
         $resultses = mysql_query ($sql);
         while($resultSet = mysql_fetch_array($resultses))
         {
@@ -146,7 +146,7 @@ else{
                        $lname = $_SESSION['SESS_LAST_NAME'];
                        echo "Welcome, " . $fname . " " . $lname . ", ";
                        ?>
-                       <span><a href="logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
+                       <span><a href="Logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
                 </div>
             </div>
       </div>
@@ -170,7 +170,7 @@ else{
                 ///////////// End of query for District list box////////////
 
                 ///////// Getting the data from Mysql table for Category list box//////////
-                $queryC="SELECT DISTINCT Category_ID,Category_Name FROM Category order by Category_ID";
+                $queryC="SELECT DISTINCT Category_ID,Category_Name FROM category order by Category_ID";
                 ///////////// End of query for Category list box////////////
 
                 ///////// Getting the data from Mysql table for Division list box//////////
@@ -180,8 +180,8 @@ else{
 
                 }
                 if(isset($cat) and strlen($cat) > 0){
-                    $quer="SELECT DISTINCT Division_ID,Division_Name FROM Division join Zone on Division.Zone_ID=Zone.Zone_ID where District_ID='".$cat."' order by Division_ID";
-                }else{$quer="SELECT DISTINCT Division_ID,Division_Name FROM Division";}
+                    $quer="SELECT DISTINCT Division_ID,Division_Name FROM division join zone on division.Zone_ID=zone.Zone_ID where District_ID='".$cat."' order by Division_ID";
+                }else{$quer="SELECT DISTINCT Division_ID,Division_Name FROM division";}
                 ///////////// End of query for Division list box////////////
 
                 ///////// Getting the data from Mysql table for School list box//////////
@@ -190,9 +190,9 @@ else{
                     $cat3=$_GET['cat3']; // This line is added to take care if your global variable is off
                 }
                 if(isset($cat3) and strlen($cat3) > 0){
-                    $quer3="SELECT DISTINCT School_ID,School_Name FROM School where Division_ID =$cat3 order by School_ID";
+                    $quer3="SELECT DISTINCT School_ID,School_Name FROM school where Division_ID =$cat3 order by School_ID";
                 }
-                else{$quer3="SELECT DISTINCT School_ID,School_Name FROM School where Division_ID =null order by School_ID";}
+                else{$quer3="SELECT DISTINCT School_ID,School_Name FROM school where Division_ID =null order by School_ID";}
                 ///////////// End of query for School list box////////////
 
                 ///////// Getting the data from Mysql table for Application list box//////////
@@ -206,9 +206,9 @@ else{
                 }
                 if(isset($scl) and strlen($scl) > 0){
                     if(isset($cate) and strlen($cate) > 0){
-                        $queryApp="SELECT Application_ID,Full_Name,Applicant_Initials,Applicant_LastName,Applicant_Type FROM Application where School_ID =$scl AND Category_ID=$cate order by Application_ID";
+                        $queryApp="SELECT Application_ID,Full_Name,Applicant_Initials,Applicant_LastName,Applicant_Type FROM application where School_ID =$scl AND Category_ID=$cate order by Application_ID";
                     }
-                    else{$queryApp="SELECT Application_ID,Full_Name,Applicant_Initials,Applicant_LastName,Applicant_Type FROM Application where School_ID =$scl order by Application_ID";}
+                    else{$queryApp="SELECT Application_ID,Full_Name,Applicant_Initials,Applicant_LastName,Applicant_Type FROM application where School_ID =$scl order by Application_ID";}
                 }
                 else{$queryApp="";}
                 ///////////// End of query for Application list box////////////

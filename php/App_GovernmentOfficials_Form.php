@@ -42,7 +42,7 @@ if(isset($_POST['submit']))
     $markst=$marks31+$marks32+$marks33+$marks34+$marks35;
     if($_POST['submit']=="Submit")
     {
-        $sql="INSERT INTO GovernmentWork_Child_Marks ".
+        $sql="INSERT INTO governmentwork_child_marks ".
             "(Application_ID, Category_ID, Service, Distance, RemotePresent, RemoteService, LeaveY1,LeaveY2,LeaveY3,LeaveY4,LeaveY5, ServiceSameSchool,Marks_Service, Marks_Distance, Marks_Remote, Marks_Leave, Marks_SameSchool, Marks_Total)".
             "VALUES ('$app', '$cat', '$service', '$distance', '$remoteCurrent', '$remote', '$y2013', '$y2012', '$y2011', '$y2010', '$y2009','$schservice', '$marks31', '$marks32', '$marks33', '$marks34', '$marks35', '$markst') ".
             "ON DUPLICATE KEY UPDATE Service = VALUES (Service),Distance = VALUES (Distance),RemotePresent = VALUES (RemotePresent),RemoteService = VALUES (RemoteService),LeaveY1 = VALUES (LeaveY1),LeaveY2 = VALUES (LeaveY2),LeaveY3 = VALUES (LeaveY3),LeaveY4 = VALUES (LeaveY4),LeaveY5 = VALUES (LeaveY5),ServiceSameSchool = VALUES (ServiceSameSchool),".
@@ -53,7 +53,7 @@ if(isset($_POST['submit']))
             die('Could not enter data: ' . mysql_error());
         }
         else{
-            $sql2="UPDATE Application SET Marks = $markst WHERE Application_ID =$app;";
+            $sql2="UPDATE application SET Marks = $markst WHERE Application_ID =$app;";
             $set = mysql_query( $sql2);
             if(! $set )
             {
@@ -68,7 +68,7 @@ if(isset($_POST['submit']))
 else
 {
     //Retriev data from DataBase
-    $sql="SELECT * FROM GovernmentWork_Child_Marks WHERE Application_ID='$app'";
+    $sql="SELECT * FROM governmentwork_child_marks WHERE Application_ID='$app'";
     $resultses = mysql_query ($sql);
     while($resultSet = mysql_fetch_array($resultses))
     {

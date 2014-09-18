@@ -1,13 +1,13 @@
 <!DOCTYPE html>
     <!--Check whether the user is logged in.-->
 <?php
-require_once('authorize.php');
+require_once('Authorize.php');
 $app=intval(@$_SESSION['SESS_Appication']);
 $cat=intval(@$_SESSION['SESS_Category']);
 if($app>0 AND $cat==4){
 require('Validate.php');
 //Connect to the database
-require_once('connection.php');
+require_once('Connection.php');
 
 // For the Application part
 $School_Name=@$_SESSION['SESS_School_Name'];
@@ -42,7 +42,7 @@ if(isset($_POST['submit']))
     $markst=$marks31+$marks32+$marks33+$marks34+$marks35;
     if($_POST['submit']=="Submit")
     {
-        $sql="INSERT INTO EducationWork_Child_Marks ".
+        $sql="INSERT INTO educationwork_child_marks ".
             "(Application_ID, Category_ID, Service, Distance, RemotePresent, RemoteService, LeaveY1,LeaveY2,LeaveY3,LeaveY4,LeaveY5, ServiceSameSchool,Marks_Service, Marks_Distance, Marks_Remote, Marks_Leave, Marks_SameSchool, Marks_Total)".
             "VALUES ('$app', '$cat', '$service', '$distance', '$remoteCurrent', '$remote', '$y2013', '$y2012', '$y2011', '$y2010', '$y2009','$schservice', '$marks31', '$marks32', '$marks33', '$marks34', '$marks35', '$markst') ".
             "ON DUPLICATE KEY UPDATE Service = VALUES (Service),Distance = VALUES (Distance),RemotePresent = VALUES (RemotePresent),RemoteService = VALUES (RemoteService),LeaveY1 = VALUES (LeaveY1),LeaveY2 = VALUES (LeaveY2),LeaveY3 = VALUES (LeaveY3),LeaveY4 = VALUES (LeaveY4),LeaveY5 = VALUES (LeaveY5),ServiceSameSchool = VALUES (ServiceSameSchool),".
@@ -53,7 +53,7 @@ if(isset($_POST['submit']))
             die('Could not enter data: ' . mysql_error());
         }
         else{
-            $sql2="UPDATE Application SET Marks = $markst WHERE Application_ID =$app;";
+            $sql2="UPDATE application SET Marks = $markst WHERE Application_ID =$app;";
             $set = mysql_query( $sql2);
             if(! $set )
             {
@@ -68,7 +68,7 @@ if(isset($_POST['submit']))
 else
 {
     //Retriev data from DataBase
-    $sql="SELECT * FROM EducationWork_Child_Marks WHERE Application_ID='$app'";
+    $sql="SELECT * FROM educationwork_child_marks WHERE Application_ID='$app'";
     $resultses = mysql_query ($sql);
     while($resultSet = mysql_fetch_array($resultses))
     {
@@ -140,7 +140,7 @@ else
                        $lname = $_SESSION['SESS_LAST_NAME'];
                        echo "Welcome, " . $fname . " " . $lname . ", ";
                        ?>
-                       <span><a href="logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
+                       <span><a href="Logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
                 </div>
             </div>
       </div>

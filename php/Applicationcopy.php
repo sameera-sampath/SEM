@@ -1,7 +1,7 @@
 <?php
 namespace SEM;
 include "Application_Handler.php";
-require_once('authorize.php');
+require_once('Authorize.php');
 $stage=1;
 $handle=new Application_Handler();
 if(isset($_GET['tex']))
@@ -67,7 +67,7 @@ if(isset($_GET['Nationalty']))
 }
 
 //Connect to the database
-require_once('connection.php');
+require_once('Connection.php');
 
 ///////// Getting the data from Mysql table for District list box//////////
 $quer2="SELECT DISTINCT District_ID,District_Name FROM district order by District_ID";
@@ -224,7 +224,7 @@ if(isset($_GET['scl']))
                     $lname = $_SESSION['SESS_LAST_NAME'];
                     echo "Welcome, " . $fname . " " . $lname . ", ";
                     ?>
-                    <span><a href="logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
+                    <span><a href="Logout.php" class="link1" style="cursor:pointer;color: #5779ff">&nbsp;&nbsp;&nbsp;Logout</a></span>
                 </div>
             </div>
         </div>
