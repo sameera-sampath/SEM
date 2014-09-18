@@ -122,7 +122,7 @@ else
 <div id="header_outer">
 	<div id="header_inner">
       <div id="header_top">
-          <div class="header_top_left">&nbsp;&nbsp; </div>
+          <div class="header_top_left"><span><a href="Index.php" class="link1" style="cursor:pointer;color: #d2a5ff">&nbsp;&nbsp;&nbsp;Home</a></span></div>
             <div class="header_top_right">
            		<div id="admin_button" style="cursor:default;">
                     <a href="#" style="cursor:default;">

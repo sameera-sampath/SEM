@@ -16,7 +16,7 @@ require_once('authorize.php');
 <div id="header_outer">
 	<div id="header_inner">
       <div id="header_top">
-          <div class="header_top_left">&nbsp;&nbsp; </div>
+          <div class="header_top_left"><span><a href="Index.php" class="link1" style="cursor:pointer;color: #d2a5ff">&nbsp;&nbsp;&nbsp;Home</a></span></div>
             <div class="header_top_right">
            		<div id="admin_button" style="cursor:default;">
                     <a href="#" style="cursor:default;">
@@ -67,7 +67,7 @@ require_once('authorize.php');
                         <span class="content_link_text">Selection Panel<br>&nbsp;</span></a></div>
                 <div class="content_block"><a href="Panel.php" class="content_link">
                         <span class="content_link_text">Appeal<br>&nbsp;</span></a></div>
-                <div class="content_block"><a href="http://103.29.60.41:8080/EMIS/administrator/" class="content_link">
+                <div class="content_block"><a href="Confirm_Student.php" class="content_link">
                         <span class="content_link_text">Confirm Enrolments<br>&nbsp;</span></a></div>
 
             </div>

@@ -134,25 +134,6 @@ if(isset($_GET['Nationalty']))
 
             self.location='Application.php?stage='+st+'&tex='+val3+'&cat=' + val + '&cat3=' + val2+ '&scl='+val4 +'&cate='+ val5 +'&religion=' + val6 +'&gender=' + val7 +'&medium=' + val8;
         }
-        function disableselect()
-        {
-            <?Php
-            if(isset($cat) and strlen($cat) > 0){
-            echo "document.f1.subcat.disabled = false;";
-            }
-            else{echo "document.f1.subcat.disabled = true;";}
-            ///////// for Division list box//////////
-            if(isset($cat3) and strlen($cat3) > 0){
-             echo "document.f1.subcat3.disabled = false;";
-             echo "document.f1.subcat.disabled = false;";}
-             else{echo "document.f1.subcat3.disabled = true;";
-                if(isset($cat) and strlen($cat) > 0){
-                echo "document.f1.subcat.disabled = false;";
-                }
-                else{echo "document.f1.subcat.disabled = true;";}
-             }
-            ?>
-        }
         //-->
 
     </script>
@@ -163,7 +144,7 @@ if(isset($_GET['Nationalty']))
 <div id="header_outer">
     <div id="header_inner">
         <div id="header_top">
-            <div class="header_top_left">&nbsp;&nbsp; </div>
+            <div class="header_top_left"><span><a href="Index.php" class="link1" style="cursor:pointer;color: #d2a5ff">&nbsp;&nbsp;&nbsp;Home</a></span></div>
             <div class="header_top_right">
                 <div id="admin_button" style="cursor:default;">
                     <a href="#" style="cursor:default;">
@@ -243,7 +224,7 @@ if(isset($_GET['Nationalty']))
         ?>
         <div class="content_title">New Application - Student Information</div>
         <div class="content_middle">
-            <form onload="disableselect()" id="stage1" name="f1" action="<?php $handle->validate_st1() ?>" method="post">
+            <form id="stage1" name="f1" action="<?php $handle->validate_st1() ?>" method="post">
                 <span class="error">* required field.</span>
 
 

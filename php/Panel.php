@@ -117,25 +117,7 @@ else{
 
             self.location='Panel.php?cat=' + val + '&cat3=' + val2+ '&scl='+val4;
         }
-        function disableselect()
-        {
-            <?Php
-            if(isset($cat) and strlen($cat) > 0){
-            echo "document.f1.subcat.disabled = false;";
-            }
-            else{echo "document.f1.subcat.disabled = true;";}
-            ///////// for Division list box//////////
-            if(isset($cat3) and strlen($cat3) > 0){
-             echo "document.f1.subcat3.disabled = false;";
-             echo "document.f1.subcat.disabled = false;";}
-             else{echo "document.f1.subcat3.disabled = true;";
-                if(isset($cat) and strlen($cat) > 0){
-                echo "document.f1.subcat.disabled = false;";
-                }
-                else{echo "document.f1.subcat.disabled = true;";}
-             }
-            ?>
-        }
+
         //-->
 
     </script>
@@ -146,7 +128,7 @@ else{
 <div id="header_outer">
 	<div id="header_inner">
       <div id="header_top">
-          <div class="header_top_left">&nbsp;&nbsp; </div>
+          <div class="header_top_left"><span><a href="Index.php" class="link1" style="cursor:pointer;color: #d2a5ff">&nbsp;&nbsp;&nbsp;Home</a></span> </div>
             <div class="header_top_right">
            		<div id="admin_button" style="cursor:default;">
                     <a href="#" style="cursor:default;">
@@ -241,7 +223,7 @@ else{
                 }
                 ?>
 
-                <form onload="disableselect()" id="stage1" name="f1" action="<?php $_PHP_SELF ?>" method="post">
+                <form id="stage1" name="f1" action="<?php $_PHP_SELF ?>" method="post">
 
                     <legend><strong id="SchoolLabel">School :</strong></legend>
                     <label id="district-label" class="app_label">
